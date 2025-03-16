@@ -52,10 +52,10 @@
 
 # Directorio en el que se encuentra el proyecto listo para probar (véanse los pasos a realizar al inicio del programa)
 # , no añada la barra al final "/":
-PROYECTO="$HOME/Escritorio/Boston1"
+PROYECTO="$HOME/ruta/a/Boston1"
 
 # Archivo donde vienen las pruebas que se le tienen que pasar:
-ARCHIVO_MD="$HOME/Descargas/TestReport.md"
+ARCHIVO_MD="$HOME/ruta/a/TestReport.md"
 
 # Directorio temporal para este script (se puede eliminar tras su uso). No poner la última barra "/".
 # Note que no debe existir, si existe, el programa no se ejecutará. Esto es
@@ -63,7 +63,7 @@ ARCHIVO_MD="$HOME/Descargas/TestReport.md"
 # con archivos importantes.
 # Aviso importante: el directorio y todos los directorios que haya dentro de él serán borrados
 # tras la ejecución del programa.
-DIR_BASURA="$HOME/Escritorio/basura"
+DIR_BASURA="$HOME/ruta/a/basura"
 
 # Archivo main.cpp del proyecto (por defecto es $PROYECTO/src/main.cpp):
 
@@ -71,21 +71,21 @@ MAIN="$PROYECTO/src/main.cpp"
 
 # Archivo con el main.cpp original del proyecto (relleno correctamente siguiendo
 # las indicaciones del guion).
-MAIN_CORRECTO="$HOME/Documentos/Proyectos/Boston1/src/main.cpp"
+MAIN_CORRECTO="$HOME/ruta/a/main.cpp"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar (véanse los pasos a realizar al inicio del programa):
-COMPILAR="$HOME/Escritorio/comandos_todo.sh"
+COMPILAR="$HOME/ruta/a/comandos_todo.sh"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar solamente el main.cpp. Si no
 # se quiere usar esta opción, copie el valor de la anterior variable. Aunque con esta opción la velocidad
 # de ejecución de los tests aumenta considerablemente.
-COMPILAR_MAIN="$HOME/Escritorio/comandos.sh"
+COMPILAR_MAIN="$HOME/ruta/a/comandos.sh"
 
 # Archivo en el que se encuentra la declaración de la función main()
-DECLARACION_MAIN="$HOME/Escritorio/main_inicio.txt"
+DECLARACION_MAIN="$HOME/ruta/a/main_inicio.txt"
 
 # Archivo en el que se encuentra el final de la función main().
-CIERRE_MAIN="$HOME/Escritorio/main_cierre.txt"
+CIERRE_MAIN="$HOME/ruta/a/main_cierre.txt"
 
 # Archivo en el que se genera el ejecutable tras ejecutar los comandos de NetBeans
 # (especificar la ruta absoluta). Pista: se obtiene en el último comando de compilación de NetBeans:
