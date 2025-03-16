@@ -110,7 +110,7 @@ if [ $error = false ]; then
 		SALIDA_CORRECTA="$(awk "NR==$n" "$ARCHIVO_MD" | awk -F '```' '{print $2}' | cut -d  '"' -f 2)"
 	
 		# Obtengo la salida que se obtiene al ejecutar el programa:
-		SALIDA_OBTENIDA=$($ARREGLAR)
+		SALIDA_OBTENIDA=$($SALIDA)
 		# Si la salida obtenida al ejecutar el archivo es la misma que la que dice el documento
 		# que debe salir, entonces el test lo habrá pasado, si no, el test no lo habrá pasado.
 		
