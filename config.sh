@@ -18,15 +18,18 @@
 #
 # Cómo usarlo:
 # 	
-# 	1. Tras haber terminado el proyecto completamente (asegúrese de que compila correctamente). Copiar
+# 	  1. Tras haber terminado el proyecto completamente (asegúrese de que compila correctamente). Copiar
 # 	   el proyecto en una carpeta nueva (que va a manipular este script).
 # 	
-# 	2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
-# 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»),
+# 	  2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
+# 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
+#      Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
+#      Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
+#      Pues NetBeans no vuelve a compilar si detecta que ya está actualizado.
 # 	   guardarlos en un archivo (omitiendo las salidas de los comandos, solamente los comandos) que
 # 	   más adelante deberá indicarle a este programa usando la variable correspondiente.
 # 	
-# 	3. Modificar el main.cpp eliminando la función main() completamente (el encabezado y todo el código
+# 	  3. Modificar el main.cpp eliminando la función main() completamente (el encabezado y todo el código
 #          entre las dos llaves de la función). Dejar los include y el resto de código.
 #
 #   	4. Añadir el código necesario al archivo main.cpp que indican los profesores en el archivo de Markdown
@@ -38,17 +41,17 @@
 #
 #          	int main () {
 #
-#	6. Escribir en un archivo cómo debe cerrar el programa la función main() (esto previene
+#	    6. Escribir en un archivo cómo debe cerrar el programa la función main() (esto previene
 #	       al programa por si, en un futuro, tuviéramos que cambiar el cierre del main()). Ejemplo:
 #
 #	   	      return 0;
 #	   	      }
 #
-#	7. Apuntar la ruta absoluta al archivo resultante de la compilación (el ejecutable). Ejemplo:
+#	    7. Apuntar la ruta absoluta al archivo resultante de la compilación (el ejecutable). Ejemplo:
 #
 #	   	        $HOME/Escritorio/Borrar./dist/Debug/GNU-Linux/boston-0
 #
-#	8. Rellenar las variables que vienen a continuación para que el script funcione correctamente.
+#	    8. Rellenar las variables que vienen a continuación para que el script funcione correctamente.
 
 # Directorio en el que se encuentra el proyecto listo para probar (véanse los pasos a realizar al inicio del programa)
 # , no añada la barra al final "/":
