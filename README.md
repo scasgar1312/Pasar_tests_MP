@@ -20,3 +20,5 @@ Para comenzar a usar el script necesita tener configurados todos las variables e
 Una vez configurado siguiendo las instrucciones de fichero de configuración, puede usarse indefinidamente.
 
 Nota: Muchas veces me ha pasado que he creído un fallo en el script pero estaba en la configuración. Por tanto, revise la configuración dos veces. Tampoco interrumpa la ejecución del script, pues entonces el programa no restaurará el main.cpp para que se puedan volver a pasar y tendrá que volverlo a hacer manualmente antes de poder volverlo a ejecutar.
+
+Una vez configurado y preparado, ejecute: `bash Pasar\ tests.sh`
