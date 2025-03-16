@@ -26,7 +26,7 @@ SaludoLicencia
 
 if [ $(ComprobarConfiguracion) = 1 ]; then
 	error=true
-	echo "Ha habido un error en la configuración, terminando la ejecución."
+	echo "Ha habido un error en la configuración, terminando la ejecución.\n El directorio de basura existe."
 fi
 
 # Creo el directorio para la basura.

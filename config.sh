@@ -58,7 +58,9 @@ PROYECTO="$HOME/ruta/a/Boston"
 ARCHIVO_MD="$HOME/ruta/a/FixedTestReport.md"
 
 # Directorio temporal para este script (se puede eliminar tras su uso). No poner la última barra "/".
-# Note que, en caso de que no exista, con el comando que aparece a continuación, se creará.
+# Note que no debe existir, si existe, el programa no se ejecutará. Esto es
+# una medida de protección para evitar que borre accidentalmente directorios
+# con archivos importantes.
 # Aviso importante: el directorio y todos los directorios que haya dentro de él serán borrados
 # tras la ejecución del programa.
 DIR_BASURA="$HOME/ruta/a/Basura"
