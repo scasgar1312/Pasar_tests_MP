@@ -15,7 +15,7 @@ Comprobar los tests manualmente es un trabajo tedioso, cuando haciendo un script
 ![captura_2](assets/Captura_2.png)
 ![captura_3](assets/Captura_1.png)
 ### Uso
-Para comenzar a usar el script necesita tener configurados todos las variables en el archivo config.sh. Donde vienen especificadas las distintas opciones que puede realizar el script. Necesita arreglar el archivo proporcionado por los profesores. Puede encontrar cómo corregirlo fácilmente con el script que se encuentra en [corregir TestReport.md](https://github.com/mrodant/).
+Para comenzar a usar el script necesita tener configurados todos las variables en el archivo config.sh. Donde vienen especificadas las distintas opciones que puede realizar el script. Necesita arreglar el archivo proporcionado por los profesores.
 
 Una vez configurado siguiendo las instrucciones de fichero de configuración, puede usarse indefinidamente.
 
