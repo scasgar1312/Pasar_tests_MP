@@ -21,29 +21,23 @@
 # 	1. Tras haber terminado el proyecto completamente (asegúrese de que compila correctamente). Copiar
 # 	   el proyecto en una carpeta nueva (que va a manipular este script).
 # 	
-<<<<<<< HEAD
 # 	2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
 # 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
 # 	   Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
 # 	   Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
 # 	   Pues NetBeans no vuelve a compilar si detecta que ya está
 # 	   actualizado.
-=======
-<<<<<<< HEAD
 # 	2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
 # 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
 # 	   Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
 # 	   Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
 # 	   Pues NetBeans no vuelve a compilar si detecta que ya está
 # 	   actualizado.
-=======
 # 	  2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
 # 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
 #      Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
 #      Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
 #      Pues NetBeans no vuelve a compilar si detecta que ya está actualizado.
->>>>>>> 97a4ce6b19445744c0cfd6881257c9e670c1354a
->>>>>>> 589b37e48460a37198dd7abd9c01ed3bd345766e
 # 	   guardarlos en un archivo (omitiendo las salidas de los comandos, solamente los comandos) que
 # 	   más adelante deberá indicarle a este programa usando la variable correspondiente.
 # 	
@@ -73,7 +67,7 @@
 
 # Directorio en el que se encuentra el proyecto listo para probar (véanse los pasos a realizar al inicio del programa)
 # , no añada la barra al final "/":
-PROYECTO="$HOME/Escritorio/Boston1"
+PROYECTO="$HOME/Escritorio/sasa"
 
 # Archivo donde vienen las pruebas que se le tienen que pasar:
 ARCHIVO_MD="$HOME/Escritorio/TestReport.md"
@@ -95,18 +89,18 @@ MAIN="$PROYECTO/src/main.cpp"
 MAIN_CORRECTO="$HOME/Documentos/MP/Proyectos/Boston1/src/main.cpp"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar (véanse los pasos a realizar al inicio del programa):
-COMPILAR="$HOME/Escritorio/comandos_todo.sh"
+COMPILAR="$HOME/Documentos/MP/script/comandos_todo.sh"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar solamente el main.cpp. Si no
 # se quiere usar esta opción, copie el valor de la anterior variable. Aunque con esta opción la velocidad
 # de ejecución de los tests aumenta considerablemente.
-COMPILAR_MAIN="$HOME/Escritorio/comandos.sh"
+COMPILAR_MAIN="$HOME/Documentos/MP/script/comandos.sh"
 
 # Archivo en el que se encuentra la declaración de la función main()
-DECLARACION_MAIN="$HOME/Escritorio/main_inicio.txt"
+DECLARACION_MAIN="$HOME/Documentos/MP/script/main_inicio.txt"
 
 # Archivo en el que se encuentra el final de la función main().
-CIERRE_MAIN="$HOME/Escritorio/main_cierre.txt"
+CIERRE_MAIN="$HOME/Documentos/MP/script/main_cierre.txt"
 
 # Archivo en el que se genera el ejecutable tras ejecutar los comandos de NetBeans
 # (especificar la ruta absoluta). Pista: se obtiene en el último comando de compilación de NetBeans:
@@ -119,14 +113,14 @@ SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston1"
 # sea el correcto. Por ello, debe especificar una ruta (externa al proyecto) donde
 # tenga el main.cpp lleno con el código tal y como lo establezca la práctica.
 
-EJECUTAR_INTEGRIDAD=false
+EJECUTAR_INTEGRIDAD=true
 ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/data"
 
 # Modificar los tests que se van a ejecutar. Para ello, seleccione el primer test que
 # quiere que se ejecute y el último. Nota, debe especificar el siguiente al último para
 # terminar por el último. Por defecto, los ejecuta todos (menos los de
 # integridad). Nota: las comillas son importantes, si no no funciona.
-MOD_INICIO=true
+MOD_INICIO=false
 MOD_FINAL=false
 INICIO_TESTS="66"
 FIN_TESTS="42"
