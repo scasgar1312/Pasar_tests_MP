@@ -21,20 +21,17 @@
 # 	  1. Tras haber terminado el proyecto completamente (asegúrese de que compila correctamente). Copiar
 # 	   el proyecto en una carpeta nueva (que va a manipular este script).
 # 	
-<<<<<<< HEAD
 # 	2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
 # 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
 # 	   Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
 # 	   Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
 # 	   Pues NetBeans no vuelve a compilar si detecta que ya está
 # 	   actualizado.
-=======
 # 	  2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
 # 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
 #      Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
 #      Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
 #      Pues NetBeans no vuelve a compilar si detecta que ya está actualizado.
->>>>>>> 97a4ce6b19445744c0cfd6881257c9e670c1354a
 # 	   guardarlos en un archivo (omitiendo las salidas de los comandos, solamente los comandos) que
 # 	   más adelante deberá indicarle a este programa usando la variable correspondiente.
 # 	
