@@ -22,7 +22,11 @@
 # 	   el proyecto en una carpeta nueva (que va a manipular este script).
 # 	
 # 	2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
-# 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»),
+# 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
+# 	   Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
+# 	   Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
+# 	   Pues NetBeans no vuelve a compilar si detecta que ya está
+# 	   actualizado.
 # 	   guardarlos en un archivo (omitiendo las salidas de los comandos, solamente los comandos) que
 # 	   más adelante deberá indicarle a este programa usando la variable correspondiente.
 # 	
@@ -90,7 +94,7 @@ CIERRE_MAIN="$HOME/Escritorio/main_cierre.txt"
 # Archivo en el que se genera el ejecutable tras ejecutar los comandos de NetBeans
 # (especificar la ruta absoluta). Pista: se obtiene en el último comando de compilación de NetBeans:
 
-SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston0"
+SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston1"
 
 # ¿Ejecutar los tests de integridad?: «true» para que se ejecuten y «false» para que no.
 # Nota: para pasar los tests de integridad, se deben ejecutar sobre el proyecto
@@ -105,9 +109,9 @@ ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/data"
 # quiere que se ejecute y el último. Nota, debe especificar el siguiente al último para
 # terminar por el último. Por defecto, los ejecuta todos (menos los de
 # integridad). Nota: las comillas son importantes, si no no funciona.
-MOD_INICIO=false
+MOD_INICIO=true
 MOD_FINAL=false
-INICIO_TESTS="45"
+INICIO_TESTS="66"
 FIN_TESTS="42"
 
 # Ejecutar el script de los profesores para crear el zip si se ejecutan todos los tests

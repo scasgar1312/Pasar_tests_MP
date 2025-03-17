@@ -160,7 +160,7 @@ if [ $error = false ]; then
 			entrada_test="$ENTRADAS_Y_SALIDAS_INTEGRIDAD/$(echo $lista_de_entradas | cut -d " " -f "$j")"
 			salida_test=$(cat "$ENTRADAS_Y_SALIDAS_INTEGRIDAD/$(echo $lista_de_salidas | cut -d " " -f "$j")")
 			echo -e "\n--------------------------------- \e[34mTest (integridad) $(printf "%3i" $j)\e[0m ---------------------------------"
-			salida_obtenida=$(valgrind --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < "$entrada_test")
+			salida_obtenida=$(valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < "$entrada_test")
 			echo -e "\nResultado de Valgrind:"
 			cat "$DIR_BASURA/resultado_valgrind_$j.txt"
 			echo -e "\nEvaluación de la salida:"
