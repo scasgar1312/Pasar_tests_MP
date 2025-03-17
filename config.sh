@@ -18,18 +18,19 @@
 #
 # Cómo usarlo:
 # 	
-# 	  1. Tras haber terminado el proyecto completamente (asegúrese de que compila correctamente). Copiar
+# 	1. Tras haber terminado el proyecto completamente (asegúrese de que compila correctamente). Copiar
 # 	   el proyecto en una carpeta nueva (que va a manipular este script).
 # 	
-# 	  2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
+# 	2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
 # 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
-#      Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
-#      Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
-#      Pues NetBeans no vuelve a compilar si detecta que ya está actualizado.
+# 	   Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
+# 	   Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
+# 	   Pues NetBeans no vuelve a compilar si detecta que ya está
+# 	   actualizado.
 # 	   guardarlos en un archivo (omitiendo las salidas de los comandos, solamente los comandos) que
 # 	   más adelante deberá indicarle a este programa usando la variable correspondiente.
 # 	
-# 	  3. Modificar el main.cpp eliminando la función main() completamente (el encabezado y todo el código
+# 	3. Modificar el main.cpp eliminando la función main() completamente (el encabezado y todo el código
 #          entre las dos llaves de la función). Dejar los include y el resto de código.
 #
 #   	4. Añadir el código necesario al archivo main.cpp que indican los profesores en el archivo de Markdown
@@ -41,24 +42,24 @@
 #
 #          	int main () {
 #
-#	    6. Escribir en un archivo cómo debe cerrar el programa la función main() (esto previene
+#	6. Escribir en un archivo cómo debe cerrar el programa la función main() (esto previene
 #	       al programa por si, en un futuro, tuviéramos que cambiar el cierre del main()). Ejemplo:
 #
 #	   	      return 0;
 #	   	      }
 #
-#	    7. Apuntar la ruta absoluta al archivo resultante de la compilación (el ejecutable). Ejemplo:
+#	7. Apuntar la ruta absoluta al archivo resultante de la compilación (el ejecutable). Ejemplo:
 #
 #	   	        $HOME/Escritorio/Borrar./dist/Debug/GNU-Linux/boston-0
 #
-#	    8. Rellenar las variables que vienen a continuación para que el script funcione correctamente.
+#	8. Rellenar las variables que vienen a continuación para que el script funcione correctamente.
 
 # Directorio en el que se encuentra el proyecto listo para probar (véanse los pasos a realizar al inicio del programa)
 # , no añada la barra al final "/":
-PROYECTO="$HOME/ruta/a/Boston1"
+PROYECTO="$HOME/Escritorio/Boston1"
 
 # Archivo donde vienen las pruebas que se le tienen que pasar:
-ARCHIVO_MD="$HOME/ruta/a/TestReport.md"
+ARCHIVO_MD="$HOME/Escritorio/TestReport.md"
 
 # Directorio temporal para este script (se puede eliminar tras su uso). No poner la última barra "/".
 # Note que no debe existir, si existe, el programa no se ejecutará. Esto es
@@ -66,7 +67,7 @@ ARCHIVO_MD="$HOME/ruta/a/TestReport.md"
 # con archivos importantes.
 # Aviso importante: el directorio y todos los directorios que haya dentro de él serán borrados
 # tras la ejecución del programa.
-DIR_BASURA="$HOME/ruta/a/basura"
+DIR_BASURA="$HOME/Escritorio/basura"
 
 # Archivo main.cpp del proyecto (por defecto es $PROYECTO/src/main.cpp):
 
@@ -74,26 +75,26 @@ MAIN="$PROYECTO/src/main.cpp"
 
 # Archivo con el main.cpp original del proyecto (relleno correctamente siguiendo
 # las indicaciones del guion).
-MAIN_CORRECTO="$HOME/ruta/a/main.cpp"
+MAIN_CORRECTO="$HOME/Documentos/MP/Proyectos/Boston1/src/main.cpp"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar (véanse los pasos a realizar al inicio del programa):
-COMPILAR="$HOME/ruta/a/comandos_todo.sh"
+COMPILAR="$HOME/Escritorio/comandos_todo.sh"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar solamente el main.cpp. Si no
 # se quiere usar esta opción, copie el valor de la anterior variable. Aunque con esta opción la velocidad
 # de ejecución de los tests aumenta considerablemente.
-COMPILAR_MAIN="$HOME/ruta/a/comandos.sh"
+COMPILAR_MAIN="$HOME/Escritorio/comandos.sh"
 
 # Archivo en el que se encuentra la declaración de la función main()
-DECLARACION_MAIN="$HOME/ruta/a/main_inicio.txt"
+DECLARACION_MAIN="$HOME/Escritorio/main_inicio.txt"
 
 # Archivo en el que se encuentra el final de la función main().
-CIERRE_MAIN="$HOME/ruta/a/main_cierre.txt"
+CIERRE_MAIN="$HOME/Escritorio/main_cierre.txt"
 
 # Archivo en el que se genera el ejecutable tras ejecutar los comandos de NetBeans
 # (especificar la ruta absoluta). Pista: se obtiene en el último comando de compilación de NetBeans:
 
-SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston0"
+SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston1"
 
 # ¿Ejecutar los tests de integridad?: «true» para que se ejecuten y «false» para que no.
 # Nota: para pasar los tests de integridad, se deben ejecutar sobre el proyecto
@@ -108,9 +109,9 @@ ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/data"
 # quiere que se ejecute y el último. Nota, debe especificar el siguiente al último para
 # terminar por el último. Por defecto, los ejecuta todos (menos los de
 # integridad). Nota: las comillas son importantes, si no no funciona.
-MOD_INICIO=false
+MOD_INICIO=true
 MOD_FINAL=false
-INICIO_TESTS="45"
+INICIO_TESTS="66"
 FIN_TESTS="42"
 
 # Ejecutar el script de los profesores para crear el zip si se ejecutan todos los tests
