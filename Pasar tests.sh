@@ -117,6 +117,7 @@ if [ $error = false ]; then
 		if [ "$SALIDA_CORRECTA" = "" ]; then
 			echo -e "\nEste test puede requerir de comparación manual. A continuación se muestra"
 			echo -e "la información necesaria."
+			echo -e "\nEntrada: \e[36m$codigo_a_probar\e[0m"
 			echo -e "\nLa salida que se obtiene es:"
         	        echo -e "$(echo $SALIDA_OBTENIDA)"
         	        echo -e "\nLa salida que se debe obtener es:"

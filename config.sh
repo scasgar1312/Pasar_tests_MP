@@ -27,12 +27,15 @@
 # 	   Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
 # 	   Pues NetBeans no vuelve a compilar si detecta que ya está
 # 	   actualizado.
+<<<<<<< HEAD
 # 	2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
 # 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
 # 	   Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
 # 	   Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
 # 	   Pues NetBeans no vuelve a compilar si detecta que ya está
 # 	   actualizado.
+=======
+>>>>>>> 4ce46632c5166893319b54fa4ba8e2da762cb5db
 # 	  2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
 # 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
 #      Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
