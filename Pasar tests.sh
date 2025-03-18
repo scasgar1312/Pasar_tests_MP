@@ -145,7 +145,7 @@ if [ $error = false ]; then
 		cp $MAIN_CORRECTO $MAIN
 		
 		# Compilo el main.cpp
-		bash $COMPILAR
+		bash $COMPILAR_MAIN
 
 		# Obtengo la lista de tests que se encuentran disponibles para este proyecto.
 		lista_de_tests=$(ls "$ENTRADAS_Y_SALIDAS_INTEGRIDAD")

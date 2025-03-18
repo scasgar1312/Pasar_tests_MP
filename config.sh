@@ -27,21 +27,7 @@
 # 	   Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
 # 	   Pues NetBeans no vuelve a compilar si detecta que ya está
 # 	   actualizado.
-<<<<<<< HEAD
-# 	2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
-# 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
-# 	   Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
-# 	   Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
-# 	   Pues NetBeans no vuelve a compilar si detecta que ya está
-# 	   actualizado.
-=======
->>>>>>> 4ce46632c5166893319b54fa4ba8e2da762cb5db
-# 	  2. Ejecutar el proyecto con NetBeans (usando el botón de «reproducción») y copiar los comandos que realiza
-# 	   para ejecutar el programa (los que aparecen en la pestaña «<nombre del proyecto> (Build, run)»).
-#      Nota importante: si aparece un mensaje de «make[2]: 'dist/Debug/GNU-Linux/boston1' está actualizado.».
-#      Entonces deberá realizar algún cambio para que aparezcan los comandos de compilación.
-#      Pues NetBeans no vuelve a compilar si detecta que ya está actualizado.
-# 	   guardarlos en un archivo (omitiendo las salidas de los comandos, solamente los comandos) que
+# 	   Tiene que guardarlos en un archivo (omitiendo las salidas de los comandos, solamente los comandos) que
 # 	   más adelante deberá indicarle a este programa usando la variable correspondiente.
 # 	
 # 	3. Modificar el main.cpp eliminando la función main() completamente (el encabezado y todo el código
@@ -89,7 +75,7 @@ MAIN="$PROYECTO/src/main.cpp"
 
 # Archivo con el main.cpp original del proyecto (relleno correctamente siguiendo
 # las indicaciones del guion).
-MAIN_CORRECTO="$HOME/Documentos/MP/Proyectos/Boston1/src/main.cpp"
+MAIN_CORRECTO="/home/tetonala1312/Documentos/MP/Proyectos/Boston1/src/main.cpp"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar (véanse los pasos a realizar al inicio del programa):
 COMPILAR="$HOME/Documentos/MP/script/comandos_todo.sh"
@@ -123,10 +109,10 @@ ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/data"
 # quiere que se ejecute y el último. Nota, debe especificar el siguiente al último para
 # terminar por el último. Por defecto, los ejecuta todos (menos los de
 # integridad). Nota: las comillas son importantes, si no no funciona.
-MOD_INICIO=false
-MOD_FINAL=false
-INICIO_TESTS="66"
-FIN_TESTS="42"
+MOD_INICIO=true
+MOD_FINAL=true
+INICIO_TESTS="39"
+FIN_TESTS="41"
 
 # Ejecutar el script de los profesores para crear el zip si se ejecutan todos los tests
 # que se hayan seleccionado sin errores.
