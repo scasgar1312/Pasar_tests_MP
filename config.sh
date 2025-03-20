@@ -109,15 +109,15 @@ ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/data"
 # quiere que se ejecute y el último. Nota, debe especificar el siguiente al último para
 # terminar por el último. Por defecto, los ejecuta todos (menos los de
 # integridad). Nota: las comillas son importantes, si no no funciona.
-MOD_INICIO=true
-MOD_FINAL=true
+MOD_INICIO=false
+MOD_FINAL=false
 INICIO_TESTS="39"
 FIN_TESTS="41"
 
 # Ejecutar el script de los profesores para crear el zip si se ejecutan todos los tests
 # que se hayan seleccionado sin errores.
 # Nota: necesita tener la variable MAIN_INTEGRIDAD correctamente establecida para funcionar.
-CREATE_ZIP_IF_NO_ERR=false
+CREATE_ZIP_IF_NO_ERR=true
 
 # Nombre de los scripts de actualizar y crear zip de los profesores (por si cambian los nombres
 # en sucesivos proyectos. No poner la última barra en las rutas.
