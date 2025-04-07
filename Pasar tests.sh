@@ -147,36 +147,86 @@ if [ $error = false ]; then
 		# Compilo el main.cpp
 		bash $COMPILAR_MAIN
 
-		# Obtengo la lista de tests que se encuentran disponibles para este proyecto.
-		lista_de_tests=$(ls "$ENTRADAS_Y_SALIDAS_INTEGRIDAD")
-		lista_de_entradas=$(echo "$lista_de_tests" | grep ".b[0-9]in")
-		lista_de_salidas=$(echo "$lista_de_tests" | grep ".b[0-9]out")
-		max_iteracion=$(echo "$lista_de_entradas" | wc --words)
-		
-		# Cojo cada entrada y cada salida, que tienen exactamente el mismo nombre, pero uno acabado
-		# en «in» y otro acabado en «out». En la práctica, estarán en el mismo puesto que su
-		# homólogo en la lista de archivos de entrada y de salida.
-	
-		for((j=1;j<=max_iteracion;j++)); do
-			entrada_test="$ENTRADAS_Y_SALIDAS_INTEGRIDAD/$(echo $lista_de_entradas | cut -d " " -f "$j")"
-			salida_test=$(cat "$ENTRADAS_Y_SALIDAS_INTEGRIDAD/$(echo $lista_de_salidas | cut -d " " -f "$j")")
+		TESTS_INTEGRIDAD="/home/tetonala1312/Escritorio/sasa/tests"
+
+		# Cojo la lista de tests que debo pasar
+		lista_de_tests=$(ls "$ENTRADAS_Y_SALIDAS_INTEGRIDAD"| grep -E '.test')
+
+		# Cojo el número de tests que debo pasar para realizar un bucle
+		numero_de_tests=$(echo "$lista_de_tests" | wc --words)
+
+		# Me pongo en la carpeta raíz del proyecto para que pueda coger los tests
+		cd "$PROYECTO"
+
+		echo "$numero_de_tests"
+
+		for((j=1;j<=numero_de_tests;j++)); do
+			# Cojo el test con el que voy a trabajar
+			test_a_pasar="$ENTRADAS_Y_SALIDAS_INTEGRIDAD/$(echo "$lista_de_tests" | awk "NR==$j")"
+
+			# Cojo lo que tengo que añadir al ejecutar el test
+			argumentos=$(cat $test_a_pasar | awk "NR==1" | awk -F "%%%CALL " '{print $2}')
+
+			# Leo el archivo del que se debe obtener la salida (si lo hay)
+			obtener_salida=$(cat $test_a_pasar | awk "NR==1" | awk -F "%%%FROMFILE " '{print $2}')
+
+			if [[ $obtener_salida == "" ]]; then
+				obtener_salida="salida estándar"
+			fi
+
+			# Obtendo la salida que se debería obtener. Que va desde la línea que contiene %%%OUTPUT
+			# hasta el final del archivo. El primer sed me incluye la línea con la propia expreción
+			# %%%OUTPUT, por lo que el segundo elimina la primera línea.
+			salida_correcta=$(cat $test_a_pasar | sed -n '/%%%OUTPUT/,$p' | sed "1d")
+
 			echo -e "\n--------------------------------- \e[34mTest (integridad) $(printf "%3i" $j)\e[0m ---------------------------------"
-			salida_obtenida=$(valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < "$entrada_test")
-			echo -e "\nResultado de Valgrind:"
-			cat "$DIR_BASURA/resultado_valgrind_$j.txt"
-			echo -e "\nEvaluación de la salida:"
-			if [ "$salida_obtenida" = "$salida_test" ]; then
-				echo -e "\n\t\tResultado de la evaluación: \e[32mCORRECTO\e[0m"
+
+			if [[ $obtener_salida == "salida estándar" ]]; then
+				if [ $(echo $argumentos | cut -d "<" -f 2) != "" ]; then
+					salida_obtenida=$(cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < $(echo $argumentos | cut -d "<" -f 2))
+				else
+					salida_obtenida=$(cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" $argumentos)
+				fi
 			else
-				echo -e "\n\t\tResultado de la evaluación: \e[31mINCORRECTO\e[0m"
-	                	echo -e "\nLa salida que se obtiene es: "
-	                	echo -e "$(echo $salida_obtenida)"
-	                	echo -e "\nLa salida que se debe obtener es: "
-	                	echo -e "$(echo $salida_test)"
-				echo -e "\nLa entrada que ha fallado es: \e[36m$entrada_test\e[0m"
-				echo -e "\n$entrada_test:"
-				cat "$entrada_test"
-				err=$(($err+1))
+				if [ $(echo $argumentos | cut -d "<" -f 2) != "" ]; then
+					valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < $(echo $argumentos | cut -d "<" -f 2)
+				else
+					valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" $argumentos
+				fi
+
+				salida_obtenida="$(cd $PROYECTO && cat $obtener_salida)"
+			fi
+
+			echo -e "\nResultado de Valgrind:"
+                        cat "$DIR_BASURA/resultado_valgrind_$j.txt"
+
+			if [ "$salida_obtenida" = "" ]; then
+				echo -e "\nEste test puede requerir de comparación manual. A continuación se muestra"
+                        	echo -e "la información necesaria."
+                        	echo -e "\nEntrada: \e[36m$argumentos\e[0m"
+                        	echo -e "\nLa salida que se obtiene es:"
+                        	echo -e "$(echo $salida_obtenida)"
+                        	echo -e "\nLa salida que se debe obtener es:"
+                        	cat "$test_a_pasar"
+			else
+				if [ "$salida_obtenida" = "$salida_correcta" ]; then
+					echo -e "\n\t\tResultado de la evaluación: \e[32mCORRECTO\e[0m"
+				else
+					echo -e "\n\t\tResultado de la evaluación: \e[31mINCORRECTO\e[0m"
+
+					# Normalmente, uno de los argumentos es la salida, luego troceo las palabras de los argumentos
+					# e imprimo el contenido de los archivos que haya en las distintas palabras del argumento.
+					# A partir de 8 no las sigue buscando, pues no tengo tiempo para mejorar el código y conseguir
+					# evitar esta chapuza de solución.
+
+					echo -e "\nEntrada: \e[36m$(if [ -f "$(echo "$argumentos" | cut -d " " -f 1)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 1)" && cat "$(echo "$argumentos" | cut -d " " -f 1)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 2)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 2)" && cat "$(echo "$argumentos" | cut -d " " -f 2)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 3)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 3)" && cat "$(echo "$argumentos" | cut -d " " -f 3)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 4)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 4)" && cat "$(echo "$argumentos" | cut -d " " -f 4)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 5)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 5)" && cat "$(echo "$argumentos" | cut -d " " -f 5)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 6)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 6)" && cat "$(echo "$argumentos" | cut -d " " -f 6)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 7)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 7)" && cat "$(echo "$argumentos" | cut -d " " -f 7)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 8)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 8)" && cat "$(echo "$argumentos" | cut -d " " -f 8)"; fi)\e[0m"
+					echo -e "\nLa salida que se obtiene es:"
+					echo -e "$(echo $salida_obtenida)"
+					echo -e "\nLa salida que se debe obtener es:"
+					echo -e "$(echo $salida_correcta)"
+                                err=$(($err+1))
+                        fi
+
 			fi
 		done
 	fi

@@ -103,7 +103,7 @@ SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston1"
 # tenga el main.cpp lleno con el código tal y como lo establezca la práctica.
 
 EJECUTAR_INTEGRIDAD=true
-ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/data"
+ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/tests"
 
 # Modificar los tests que se van a ejecutar. Para ello, seleccione el primer test que
 # quiere que se ejecute y el último. Nota, debe especificar el siguiente al último para
@@ -112,7 +112,7 @@ ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/data"
 MOD_INICIO=false
 MOD_FINAL=false
 INICIO_TESTS="39"
-FIN_TESTS="41"
+FIN_TESTS="40"
 
 # Ejecutar el script de los profesores para crear el zip si se ejecutan todos los tests
 # que se hayan seleccionado sin errores.
