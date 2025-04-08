@@ -26,7 +26,7 @@ SaludoLicencia
 
 if [ $(ComprobarConfiguracion) = 1 ]; then
 	error=true
-	echo "Ha habido un error en la configuración, terminando la ejecución.\n El directorio de basura existe."
+	echo -e "Ha habido un error en la configuración, terminando la ejecución.\n El directorio de basura existe."
 fi
 
 # Creo el directorio para la basura.
@@ -148,7 +148,7 @@ if [ $error = false ]; then
 		bash $COMPILAR_MAIN
 
 		# Cojo la lista de tests que debo pasar
-		lista_de_tests=$(ls "$ENTRADAS_Y_SALIDAS_INTEGRIDAD"| grep -E '.test')
+		lista_de_tests=$(ls "$ENTRADAS_Y_SALIDAS_INTEGRIDAD" | grep -E '.test')
 
 		# Cojo el número de tests que debo pasar para realizar un bucle
 		numero_de_tests=$(echo "$lista_de_tests" | wc --words)
@@ -156,27 +156,30 @@ if [ $error = false ]; then
 		# Me pongo en la carpeta raíz del proyecto para que pueda coger los tests
 		cd "$PROYECTO"
 
-		echo "$numero_de_tests"
-
 		for((j=1;j<=numero_de_tests;j++)); do
 			# Cojo el test con el que voy a trabajar
 			test_a_pasar="$ENTRADAS_Y_SALIDAS_INTEGRIDAD/$(echo "$lista_de_tests" | awk "NR==$j")"
 
 			# Cojo lo que tengo que añadir al ejecutar el test
-			argumentos_str=$(cat $test_a_pasar | awk "NR==1" | awk -F "%%%CALL " '{print $2}')
+			argumentos_str=$(sed -n '1{s/.*%%%CALL //; s/^[[:space:]]*//; s/[[:space:]]*$//; s/[[:space:]]\+/ /; p}' "$test_a_pasar")
 			
 			# Cojo los argumentos del string y los paso a un vector para poder manipularlos en la
 			# salida correctamente.
-			
-			argumentos=($(echo "$argumentos_str" | cut -d " " -f 1))
-			n_argumentos=2
+
+			if [ "$(echo "$argumentos_str" | cut -d " " -f 1)" = "" ]; then
+				argumentos=("totalmente vacío")
+				n_argumentos=1
+			else	
+				argumentos=($(echo "$argumentos_str" | cut -d " " -f 1))
+				n_argumentos=2
+			fi
 			
 			for((n_argumentos;n_argumentos<=$(echo "$argumentos_str" | wc --words);n_argumentos++)); do
 				argumentos[$n_argumentos]=$(echo "$argumentos_str" | cut -d " " -f $n_argumentos)
 			done
 
 			# Leo el archivo del que se debe obtener la salida (si lo hay)
-			obtener_salida=$(cat $test_a_pasar | awk "NR==1" | awk -F "%%%FROMFILE " '{print $2}')
+			obtener_salida=$(cat $test_a_pasar | awk "NR==1" | awk -F '%%%FROMFILE ' '{print $2}')
 
 			if [[ $obtener_salida == "" ]]; then
 				obtener_salida="salida estándar"
@@ -206,9 +209,9 @@ if [ $error = false ]; then
 			fi
 
 			echo -e "\nResultado de Valgrind:"
-                        cat "$DIR_BASURA/resultado_valgrind_$j.txt"
+                        # cat "$DIR_BASURA/resultado_valgrind_$j.txt"
 
-			if [ "$salida_obtenida" = "" ]; then
+			if [ "$salida_correcta" = "" ]; then
 				echo -e "\nEste test puede requerir de comparación manual. A continuación se muestra"
                         	echo -e "la información necesaria."
                         	echo -e "\nEntrada: \e[36m$argumentos\e[0m"
@@ -226,21 +229,27 @@ if [ $error = false ]; then
 					# e imprimo el contenido de los archivos que haya en las distintas palabras del argumento.
 					# A partir de 8 no las sigue buscando, pues no tengo tiempo para mejorar el código y conseguir
 					# evitar esta chapuza de solución.
-					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
-						echo -e "\nEntrada: \e[36m$(cat ${argumentos[2]})\e[0m"
+					if [[ $(echo "$argumentos_str" | wc --words) -ge 2 ]]; then
+						if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
+							echo -e "\nEntrada: \e[36m$(cat ${argumentos[2]})\e[0m"
+						else
+							echo -e "\nEntrada:"
+							cd $PROYECTO
+							for((i=1;i<=$(echo "$argumentos_str" | wc --words);i++)); do
+								a_leer="$(echo "$argumentos_str" | cut -d " " -f $i)"
+								echo -e "\n\e[36m--> Archivo $a_leer:\e[0m"
+								cat "$a_leer"
+							done
+						fi
+						echo -e "\nLa salida que se obtiene es:"
+						echo -e "$(echo $salida_obtenida)"
+						echo -e "\nLa salida que se debe obtener es:"
+						echo -e "$(echo $salida_correcta)"
+						err=$(($err+1))
 					else
-						echo -e "\nEntrada:"
-						for((l=1;l<=n_argumentos;l++)); do
-							echo -e "\e[36m--> Archivo ${argumentos[$l]}:\e[0m"
-							cat ${argumentos[$l]}
-						done
+						echo -e "\nEntrada: \e[36mliteralmente vacía, se ha ejecutado el programa sin argumentos.\e[0m"
 					fi
-					echo -e "\nLa salida que se obtiene es:"
-					echo -e "$(echo $salida_obtenida)"
-					echo -e "\nLa salida que se debe obtener es:"
-					echo -e "$(echo $salida_correcta)"
-                                err=$(($err+1))
-                        fi
+                        	fi
 
 			fi
 		done

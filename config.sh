@@ -56,7 +56,7 @@
 
 # Directorio en el que se encuentra el proyecto listo para probar (véanse los pasos a realizar al inicio del programa)
 # , no añada la barra al final "/":
-PROYECTO="$HOME/E/Escritorio/Boston2"
+PROYECTO="$HOME/Escritorio/Boston2"
 
 # Archivo donde vienen las pruebas que se le tienen que pasar:
 ARCHIVO_MD="$HOME/Escritorio/configuracion/TestReport.md"
