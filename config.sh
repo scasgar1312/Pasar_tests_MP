@@ -75,7 +75,7 @@ MAIN="$PROYECTO/src/main.cpp"
 
 # Archivo con el main.cpp original del proyecto (relleno correctamente siguiendo
 # las indicaciones del guion).
-MAIN_CORRECTO="/home/tetonala1312/Documentos/MP/Proyectos/Boston1/src/main.cpp"
+MAIN_CORRECTO="$HOME/Documentos/MP/Proyectos/Boston1/src/main.cpp"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar (véanse los pasos a realizar al inicio del programa):
 COMPILAR="$HOME/Documentos/MP/script/comandos_todo.sh"
