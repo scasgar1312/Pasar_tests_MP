@@ -74,7 +74,9 @@ $PROYECTO/dist/Debug/GNU-Linux/boston-0
   
 ¿Dónde encontrarlo? Suele encontrarse en el último comando de compilación de NetBeans. Exactamente el primer archivo que aparece (no aparece con la ruta absoluta, sino relativa a la raíz del proyecto). Truco: puede usar la variable $PROYECTO previamente creada para evitar copiar la ruta a la copia del proyecto que ha creado.
 ![Ubicación de la salida del ejecutable](assets/Salida-con-el-ejecutable.png)
+
 8. Modificar el archivo main.cpp de la copia del proyecto, vacíelo menos los `include` y el `using namespace std;`, es decir, borre la función `main` completamente.
+
 9. Copie el código que debemos poner en el main.cpp para pasar los tests de integridad. Recomendación: ejecute
 ```
 cat /ruta/a/TestReport.HowToTestUnitTests
