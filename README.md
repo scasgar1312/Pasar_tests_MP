@@ -81,6 +81,7 @@ cat /ruta/a/TestReport.HowToTestUnitTests
 ```
 Y copie el código que digan los profesores que tenemos que poner en el main.cpp para pasar los tests de unidad. Ejemplo:
 ![Ejemplo de texto a copiar para pasar los tests de unidad](assets/Copiar-para-pasar-los-tests-de-unidad.png)
+
 8. Modificar las últimas variables de configuración, cuyo comentario me parece lo suficientemente explicativo para que entienda lo que hacen.
 
 9. Ha habido un cambio en la variable ENTRADAS_Y_SALIDAS_INTEGRIDAD. Ahora debe contener la ruta a la carpeta (sin la barra "/") en la que se encuentran los archivos .test. Generalmente es "$PROYECTO/tests".
