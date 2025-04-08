@@ -54,6 +54,7 @@ Tener en la pantalla a la vez el archivo de configuración (config.sh) y esta p�
 		4. Copie los comandos de NetBeans que aparecen después de «CLEAN SUCCESSFUL». Tenga en cuenta las mismas consideraciones que para la variable COMPILAR.
 		5. Cree un nuevo archivo (con la línea `!#/bin/bash` de cabecera) con esos comandos. Y muy **importante** copie el último comando de su archivo `$COMPILAR` y añádalo a este. Pues si no, este script no creará el ejecutable y el script no funcionará.
 	2. Con el ejemplo: hay un archivo en la carpeta ejemplos de este repositorio que se llama compilar.sh. Cambie la ruta del comando cd y ya debería funcionar. Si, en algún caso, no funcionara, hágalo manualmente.
+  
 4. DECLARACION_MAIN: Escribir en un archivo cómo debe iniciar el programa la función main() (esto previene por si, en un futuro, tuviéramos que cambiar la declaración del main()). Ejemplo:
   
 ```
@@ -74,18 +75,18 @@ $PROYECTO/dist/Debug/GNU-Linux/boston-0
   
 ¿Dónde encontrarlo? Suele encontrarse en el último comando de compilación de NetBeans. Exactamente el primer archivo que aparece (no aparece con la ruta absoluta, sino relativa a la raíz del proyecto). Truco: puede usar la variable $PROYECTO previamente creada para evitar copiar la ruta a la copia del proyecto que ha creado.
 ![Ubicación de la salida del ejecutable](assets/Salida-con-el-ejecutable.png)
-
+  
 7. Modificar el archivo main.cpp de la copia del proyecto, vacíelo menos los `include` y el `using namespace std;`, es decir, borre la función `main` completamente.
-
+  
 8. Copie el código que debemos poner en el main.cpp para pasar los tests de integridad. Recomendación: ejecute
 ```
 cat /ruta/a/TestReport.HowToTestUnitTests
 ```
 Y copie el código que digan los profesores que tenemos que poner en el main.cpp para pasar los tests de unidad. Ejemplo:
 ![Ejemplo de texto a copiar para pasar los tests de unidad](assets/Copiar-para-pasar-los-tests-de-unidad.png)
-
+  
 9. Modificar las últimas variables de configuración, cuyo comentario me parece lo suficientemente explicativo para que entienda lo que hacen.
-
+  
 10. Ha habido un cambio en la variable ENTRADAS_Y_SALIDAS_INTEGRIDAD. Ahora debe contener la ruta a la carpeta (sin la barra "/") en la que se encuentran los archivos .test. Generalmente es "$PROYECTO/tests".
 
 ### Uso
