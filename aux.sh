@@ -73,11 +73,3 @@ function EncontrarTest () {
 	echo $(($i-2));
         return 0;
 }
-
-function DevolverPalabra () {
-	if [ -f "$1" ]; then
-		echo "$(cat "$1" | cut -d " " -f $2)"
-	else
-		echo "$(echo "$1" | cut -d " " -f $2)"
-	fi
-}

@@ -147,8 +147,6 @@ if [ $error = false ]; then
 		# Compilo el main.cpp
 		bash $COMPILAR_MAIN
 
-		TESTS_INTEGRIDAD="/home/tetonala1312/Escritorio/sasa/tests"
-
 		# Cojo la lista de tests que debo pasar
 		lista_de_tests=$(ls "$ENTRADAS_Y_SALIDAS_INTEGRIDAD"| grep -E '.test')
 
@@ -165,7 +163,17 @@ if [ $error = false ]; then
 			test_a_pasar="$ENTRADAS_Y_SALIDAS_INTEGRIDAD/$(echo "$lista_de_tests" | awk "NR==$j")"
 
 			# Cojo lo que tengo que añadir al ejecutar el test
-			argumentos=$(cat $test_a_pasar | awk "NR==1" | awk -F "%%%CALL " '{print $2}')
+			argumentos_str=$(cat $test_a_pasar | awk "NR==1" | awk -F "%%%CALL " '{print $2}')
+			
+			# Cojo los argumentos del string y los paso a un vector para poder manipularlos en la
+			# salida correctamente.
+			
+			argumentos=($(echo "$argumentos_str" | cut -d " " -f 1))
+			n_argumentos=2
+			
+			for((n_argumentos;n_argumentos<=$(echo "$argumentos_str" | wc --words);n_argumentos++)); do
+				argumentos[$n_argumentos]=$(echo "$argumentos_str" | cut -d " " -f $n_argumentos)
+			done
 
 			# Leo el archivo del que se debe obtener la salida (si lo hay)
 			obtener_salida=$(cat $test_a_pasar | awk "NR==1" | awk -F "%%%FROMFILE " '{print $2}')
@@ -182,16 +190,16 @@ if [ $error = false ]; then
 			echo -e "\n--------------------------------- \e[34mTest (integridad) $(printf "%3i" $j)\e[0m ---------------------------------"
 
 			if [[ $obtener_salida == "salida estándar" ]]; then
-				if [ $(echo $argumentos | cut -d "<" -f 2) != "" ]; then
-					salida_obtenida=$(cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < $(echo $argumentos | cut -d "<" -f 2))
+				if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
+					salida_obtenida=$(cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]})
 				else
-					salida_obtenida=$(cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" $argumentos)
+					salida_obtenida=$(cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]})
 				fi
 			else
-				if [ $(echo $argumentos | cut -d "<" -f 2) != "" ]; then
-					valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < $(echo $argumentos | cut -d "<" -f 2)
+				if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
+					valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]}
 				else
-					valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" $argumentos
+					valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]}
 				fi
 
 				salida_obtenida="$(cd $PROYECTO && cat $obtener_salida)"
@@ -218,8 +226,15 @@ if [ $error = false ]; then
 					# e imprimo el contenido de los archivos que haya en las distintas palabras del argumento.
 					# A partir de 8 no las sigue buscando, pues no tengo tiempo para mejorar el código y conseguir
 					# evitar esta chapuza de solución.
-
-					echo -e "\nEntrada: \e[36m$(if [ -f "$(echo "$argumentos" | cut -d " " -f 1)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 1)" && cat "$(echo "$argumentos" | cut -d " " -f 1)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 2)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 2)" && cat "$(echo "$argumentos" | cut -d " " -f 2)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 3)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 3)" && cat "$(echo "$argumentos" | cut -d " " -f 3)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 4)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 4)" && cat "$(echo "$argumentos" | cut -d " " -f 4)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 5)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 5)" && cat "$(echo "$argumentos" | cut -d " " -f 5)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 6)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 6)" && cat "$(echo "$argumentos" | cut -d " " -f 6)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 7)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 7)" && cat "$(echo "$argumentos" | cut -d " " -f 7)"; fi ; if [ -f "$(echo "$argumentos" | cut -d " " -f 8)" ]; then echo "Archivo $(echo "$argumentos" | cut -d " " -f 8)" && cat "$(echo "$argumentos" | cut -d " " -f 8)"; fi)\e[0m"
+					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
+						echo -e "\nEntrada: \e[36m$(cat ${argumentos[2]})\e[0m"
+					else
+						echo -e "\nEntrada:"
+						for((l=1;l<=n_argumentos;l++)); do
+							echo -e "\e[36m--> Archivo ${argumentos[$l]}:\e[0m"
+							cat ${argumentos[$l]}
+						done
+					fi
 					echo -e "\nLa salida que se obtiene es:"
 					echo -e "$(echo $salida_obtenida)"
 					echo -e "\nLa salida que se debe obtener es:"
