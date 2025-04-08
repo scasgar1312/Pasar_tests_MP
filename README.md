@@ -23,7 +23,7 @@ Tener en la pantalla a la vez el archivo de configuración (config.sh) y esta p�
   
 2. Rellenar la variable PROYECTO con la ruta a la carpeta del nuevo proyecto creado. Sirvan de ejemplo, de aquí en adelante, las rutas que hay predefinidas.
   
-	**Nota importante**: he observado que mi script no maneja bien las rutas en las que haya espacios, serán seguramenta algunas comillas que haya omitido en alguna parte del script, pero **no** voy a arreglarlo (no me merece la pena).
+	**Nota importante**: he observado que mi script no maneja bien las rutas en las que haya espacios, serán seguramente algunas comillas que haya omitido en alguna parte del script, pero **no** voy a arreglarlo (no me merece la pena).
   
 2. Rellenar la variable ARCHIVO_MD, esta variable contiene la ruta al archivo con los tests a ejecutar, nos los pasan los profesores como «TestReport.md», aunque no funciona, pues los tests están mal (les falta un `cout` al final para que muestre el resultado, y, a veces un `boolalpha` o alguna cosa más). No obstante, [aquí](https://github.com/scasgar1312/Pasar_tests_MP#uso) se encuentra un enlace (cortesía de Manuel RA) con el TestReport.md corregido para que pueda omitir su corrección. Por tanto, simplemente especifique la ruta a ese archivo.
   
@@ -82,6 +82,9 @@ cat /ruta/a/TestReport.HowToTestUnitTests
 Y copie el código que digan los profesores que tenemos que poner en el main.cpp para pasar los tests de unidad. Ejemplo:
 ![Ejemplo de texto a copiar para pasar los tests de unidad](assets/Copiar-para-pasar-los-tests-de-unidad.png)
 8. Modificar las últimas variables de configuración, cuyo comentario me parece lo suficientemente explicativo para que entienda lo que hacen.
+
+9. Ha habido un cambio en la variable ENTRADAS_Y_SALIDAS_INTEGRIDAD. Ahora debe contener la ruta a la carpeta (sin la barra "/") en la que se encuentran los archivos .test. Generalmente es "$PROYECTO/tests".
+
 ### Uso
 Para comenzar a usar el script necesita tener configurados todos las variables en el archivo config.sh. Esto lo tendrá hecho si ha seguido los pasos anteriores.
 
