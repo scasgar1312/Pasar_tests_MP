@@ -88,6 +88,8 @@ Y copie el código que digan los profesores que tenemos que poner en el main.cpp
 13. Modificar las últimas variables de configuración, cuyo comentario me parece lo suficientemente explicativo para que entienda lo que hacen.
   
 14. Ha habido un cambio en la variable ENTRADAS_Y_SALIDAS_INTEGRIDAD. Ahora debe contener la ruta a la carpeta (sin la barra "/") en la que se encuentran los archivos .test. Generalmente es "$PROYECTO/tests".
+15. Modificar el main.cpp de la copia del proyecto que ha creado en el primer paso. Para ello, elimina absolutamente toda la función main(), desde la primera hasta la última llave y también la declaración del main. **Nota:** no elimine los include ni otras declaraciones ajenas al main.
+16. Añada el código que se debe poner en el main.cpp para pasar los tests. Este código lo comparten los profesores en el archivo TestReport.HowToTestUnitTests.md.
 
 ### Uso
 Para comenzar a usar el script necesita tener configurados todos las variables en el archivo config.sh. Esto lo tendrá hecho si ha seguido los pasos anteriores.

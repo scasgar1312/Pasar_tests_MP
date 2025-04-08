@@ -59,7 +59,7 @@
 PROYECTO="$HOME/E/Escritorio/Boston2"
 
 # Archivo donde vienen las pruebas que se le tienen que pasar:
-ARCHIVO_MD="$HOME/Escritorio/TestReport.md"
+ARCHIVO_MD="$HOME/Escritorio/configuracion/TestReport.md"
 
 # Directorio temporal para este script (se puede eliminar tras su uso). No poner la última barra "/".
 # Note que no debe existir, si existe, el programa no se ejecutará. Esto es
@@ -75,26 +75,26 @@ MAIN="$PROYECTO/src/main.cpp"
 
 # Archivo con el main.cpp original del proyecto (relleno correctamente siguiendo
 # las indicaciones del guion).
-MAIN_CORRECTO="$HOME/Documentos/MP/Proyectos/Boston1/src/main.cpp"
+MAIN_CORRECTO="$HOME/Documentos/MP/Proyectos/Boston2/src/main.cpp"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar (véanse los pasos a realizar al inicio del programa):
-COMPILAR="$HOME/Documentos/MP/script/comandos_todo.sh"
+COMPILAR="$HOME/Escritorio/configuracion/comandos_todo.sh"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar solamente el main.cpp. Si no
 # se quiere usar esta opción, copie el valor de la anterior variable. Aunque con esta opción la velocidad
 # de ejecución de los tests aumenta considerablemente.
-COMPILAR_MAIN="$HOME/Documentos/MP/script/comandos.sh"
+COMPILAR_MAIN="$HOME/Escritorio/configuracion/comandos.sh"
 
 # Archivo en el que se encuentra la declaración de la función main()
-DECLARACION_MAIN="$HOME/Documentos/MP/script/main_inicio.txt"
+DECLARACION_MAIN="$HOME/Escritorio/configuracion/inicio_main.txt"
 
 # Archivo en el que se encuentra el final de la función main().
-CIERRE_MAIN="$HOME/Documentos/MP/script/main_cierre.txt"
+CIERRE_MAIN="$HOME/Escritorio/configuracion/main_cierre.txt"
 
 # Archivo en el que se genera el ejecutable tras ejecutar los comandos de NetBeans
 # (especificar la ruta absoluta). Pista: se obtiene en el último comando de compilación de NetBeans:
 
-SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston1"
+SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston2"
 
 # ¿Ejecutar los tests de integridad?: «true» para que se ejecuten y «false» para que no.
 # Nota: para pasar los tests de integridad, se deben ejecutar sobre el proyecto
@@ -117,7 +117,7 @@ FIN_TESTS="40"
 # Ejecutar el script de los profesores para crear el zip si se ejecutan todos los tests
 # que se hayan seleccionado sin errores.
 # Nota: necesita tener la variable MAIN_INTEGRIDAD correctamente establecida para funcionar.
-CREATE_ZIP_IF_NO_ERR=true
+CREATE_ZIP_IF_NO_ERR=false
 
 # Nombre de los scripts de actualizar y crear zip de los profesores (por si cambian los nombres
 # en sucesivos proyectos. No poner la última barra en las rutas.
