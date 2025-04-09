@@ -161,7 +161,7 @@ if [ $error = false ]; then
 			test_a_pasar="$ENTRADAS_Y_SALIDAS_INTEGRIDAD/$(echo "$lista_de_tests" | awk "NR==$j")"
 
 			# Cojo lo que tengo que añadir al ejecutar el test
-			argumentos_str=$(sed -n '1{s/.*%%%CALL //; s/^[[:space:]]*//; s/[[:space:]]*$//; s/[[:space:]]\+/ /; p}' "$test_a_pasar")
+			argumentos_str=$(grep '%%%CALL' "$test_a_pasar" | sed -n '{s/^\s*%%%CALL\s*$/ /; s/.*%%%CALL //; s/^[[:space:]]*//; s/[[:space:]]*$//; s/[[:space:]]\+/ /; p}')
 			
 			# Cojo los argumentos del string y los paso a un vector para poder manipularlos en la
 			# salida correctamente.
@@ -179,39 +179,54 @@ if [ $error = false ]; then
 			done
 
 			# Leo el archivo del que se debe obtener la salida (si lo hay)
-			obtener_salida=$(cat $test_a_pasar | awk "NR==1" | awk -F '%%%FROMFILE ' '{print $2}')
+			obtener_salida=$(grep '%%%FROMFILE' "$test_a_pasar" | sed -n '{s/^\s*%%%FROMFILE\s*$/ /; s/.*%%%FROMFILE //; s/^[[:space:]]*//; s/[[:space:]]*$//; s/[[:space:]]\+/ /; p}')
 
-			if [[ $obtener_salida == "" ]]; then
+			if [[ "$obtener_salida" == "" ]]; then
 				obtener_salida="salida estándar"
 			fi
+
+			# Establezco el archivo en el que se va a guardar la salida correcta
+			archivo_salida_correcta="$DIR_BASURA/salida_correcta_integridad_$j"
 
 			# Obtendo la salida que se debería obtener. Que va desde la línea que contiene %%%OUTPUT
 			# hasta el final del archivo. El primer sed me incluye la línea con la propia expreción
 			# %%%OUTPUT, por lo que el segundo elimina la primera línea.
-			salida_correcta=$(cat $test_a_pasar | sed -n '/%%%OUTPUT/,$p' | sed "1d")
+			cat $test_a_pasar | sed -n '/%%%OUTPUT/,$p' | sed "1d" > "$archivo_salida_correcta"
 
 			echo -e "\n--------------------------------- \e[34mTest (integridad) $(printf "%3i" $j)\e[0m ---------------------------------"
 
-			if [[ $obtener_salida == "salida estándar" ]]; then
-				if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
-					salida_obtenida=$(cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]})
+			# Establezco el archivo en el que se va a guardar la salida
+			archivo_salida="$DIR_BASURA/saluda_integridad_$j"
+
+			if [[ $(echo "$argumentos_str" | wc --words) -ge 2 ]]; then
+				if [[ $obtener_salida == "salida estándar" ]]; then
+					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
+						cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]} > "$archivo_salida" > "$archivo_salida"
+					else
+						cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]} > "$archivo_salida"
+					fi
 				else
-					salida_obtenida=$(cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]})
+					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
+						valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]}
+					else
+						valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]}
+					fi
+					cd $PROYECTO && cat $obtener_salida > $archivo_salida
 				fi
 			else
-				if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
-					valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]}
-				else
-					valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]}
+				if [[ $obtener_salida == "salida estándar" ]]; then
+                                                cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" > $archivo_salida
+					else
+						valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA"
+						cd $PROYECTO && cat $obtener_salida > $archivo_salida
 				fi
-
-				salida_obtenida="$(cd $PROYECTO && cat $obtener_salida)"
 			fi
 
-			echo -e "\nResultado de Valgrind:"
-                        # cat "$DIR_BASURA/resultado_valgrind_$j.txt"
 
-			if [ "$salida_correcta" = "" ]; then
+			echo -e "\nResultado de Valgrind:"
+                        cat "$DIR_BASURA/resultado_valgrind_$j.txt"
+
+			if [ "$(cat $archivo_salida_correcta)" = "" ]; then
 				echo -e "\nEste test puede requerir de comparación manual. A continuación se muestra"
                         	echo -e "la información necesaria."
                         	echo -e "\nEntrada: \e[36m$argumentos\e[0m"
@@ -220,7 +235,7 @@ if [ $error = false ]; then
                         	echo -e "\nLa salida que se debe obtener es:"
                         	cat "$test_a_pasar"
 			else
-				if [ "$salida_obtenida" = "$salida_correcta" ]; then
+				if cmp -s "$archivo_salida" "$archivo_salida_correcta" ; then
 					echo -e "\n\t\tResultado de la evaluación: \e[32mCORRECTO\e[0m"
 				else
 					echo -e "\n\t\tResultado de la evaluación: \e[31mINCORRECTO\e[0m"
@@ -233,25 +248,32 @@ if [ $error = false ]; then
 						if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
 							echo -e "\nEntrada: \e[36m$(cat ${argumentos[2]})\e[0m"
 						else
-							echo -e "\nEntrada:"
+							echo -e "\nEntrada: "$argumentos_str""
 							cd $PROYECTO
 							for((i=1;i<=$(echo "$argumentos_str" | wc --words);i++)); do
 								a_leer="$(echo "$argumentos_str" | cut -d " " -f $i)"
-								echo -e "\n\e[36m--> Archivo $a_leer:\e[0m"
-								cat "$a_leer"
+								if [ -f "$a_leer" ]; then
+									echo -e "\n\e[36m--> Archivo $a_leer:\e[0m"
+									cat "$a_leer"
+								fi
 							done
 						fi
 						echo -e "\nLa salida que se obtiene es:"
-						echo -e "$(echo $salida_obtenida)"
+						cat "$archivo_salida"
 						echo -e "\nLa salida que se debe obtener es:"
-						echo -e "$(echo $salida_correcta)"
+						cat "$archivo_salida_correcta"
 						err=$(($err+1))
 					else
 						echo -e "\nEntrada: \e[36mliteralmente vacía, se ha ejecutado el programa sin argumentos.\e[0m"
+						echo -e "\nLa salida que se obtiene es:"
+                                                cat "$archivo_salida"
+                                                echo -e "\nLa salida que se debe obtener es:"
+                                                cat "$archivo_salida_correcta"
 					fi
                         	fi
-
 			fi
+
+			rm "$archivo_salida" "$archivo_salida_correcta"
 		done
 	fi
 	
