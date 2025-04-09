@@ -198,7 +198,7 @@ if [ $error = false ]; then
 			# Establezco el archivo en el que se va a guardar la salida
 			archivo_salida="$DIR_BASURA/saluda_integridad_$j"
 
-			if [[ $(echo "$argumentos_str" | wc --words) -ge 2 ]]; then
+			if [[ $n_argumentos -ge 2 ]]; then
 				if [[ $obtener_salida == "salida estándar" ]]; then
 					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
 						cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]} > "$archivo_salida" > "$archivo_salida"
@@ -244,7 +244,7 @@ if [ $error = false ]; then
 					# e imprimo el contenido de los archivos que haya en las distintas palabras del argumento.
 					# A partir de 8 no las sigue buscando, pues no tengo tiempo para mejorar el código y conseguir
 					# evitar esta chapuza de solución.
-					if [[ $(echo "$argumentos_str" | wc --words) -ge 2 ]]; then
+					if [[ $n_argumentos -ge 2 ]]; then
 						if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
 							echo -e "\nEntrada: \e[36m$(cat ${argumentos[2]})\e[0m"
 						else
