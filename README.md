@@ -98,6 +98,6 @@ Una vez configurado siguiendo las instrucciones de fichero de configuración, pu
 
 Nota: Muchas veces me ha pasado que he creído un fallo en el script pero estaba en la configuración. Por tanto, revise la configuración dos veces. Tampoco interrumpa la ejecución del script, pues entonces el programa no restaurará el main.cpp para que se puedan volver a pasar y tendrá que volverlo a hacer manualmente antes de poder volverlo a ejecutar.
 
-Por cortesía de Manuel RA, el TestReport.md ya corregido está en el siguiente enlace: [https://0.jaegers.net/?69bd516792b8bd92#A5JGLFrJVGBRUGZDuhuTn8EFXfjFx69oUzsw58hEc5qq](https://0.jaegers.net/?69bd516792b8bd92#A5JGLFrJVGBRUGZDuhuTn8EFXfjFx69oUzsw58hEc5qq)
+Por cortesía de Manuel RA, el TestReport.md ya corregido está en el siguiente enlace: [https://0.jaegers.net/?f95ba272505ae71e#4p8FBXuzHv19VL5LifPUSUNow8Rm7P6rh7MXBCt26ZmC](https://0.jaegers.net/?f95ba272505ae71e#4p8FBXuzHv19VL5LifPUSUNow8Rm7P6rh7MXBCt26ZmC)
 
 Una vez configurado y preparado, ejecute: `bash Pasar\ tests.sh`
