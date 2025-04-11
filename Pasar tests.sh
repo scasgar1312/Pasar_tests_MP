@@ -65,6 +65,8 @@ if [ $error = false ]; then
 	bash $COMPILAR
 	
 	cp "$DIR_BASURA/main.cpp" "$MAIN"
+
+	cd "$PROYECTO"
 	
 	# Ahora sé que desde la primera línea en la que hay un test ($INICIO_TESTS) hasta la anterior a $FIN_TESTS está
 	# primero el test a ejecutar y, a continuación, en la siguiente línea, el resultado que debería dar.

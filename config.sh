@@ -102,15 +102,15 @@ SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston2"
 # sea el correcto. Por ello, debe especificar una ruta (externa al proyecto) donde
 # tenga el main.cpp lleno con el código tal y como lo establezca la práctica.
 
-EJECUTAR_INTEGRIDAD=true
+EJECUTAR_INTEGRIDAD=false
 ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/tests"
 
 # Modificar los tests que se van a ejecutar. Para ello, seleccione el primer test que
 # quiere que se ejecute y el último. Nota, debe especificar el siguiente al último para
 # terminar por el último. Por defecto, los ejecuta todos (menos los de
 # integridad). Nota: las comillas son importantes, si no no funciona.
-MOD_INICIO=true
-MOD_FINAL=true
+MOD_INICIO=false
+MOD_FINAL=false
 INICIO_TESTS="39"
 FIN_TESTS="40"
 
