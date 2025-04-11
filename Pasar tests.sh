@@ -195,6 +195,9 @@ if [ $error = false ]; then
 			# %%%OUTPUT, por lo que el segundo elimina la primera línea.
 			cat $test_a_pasar | sed -n '/%%%OUTPUT/,$p' | sed "1d" > "$archivo_salida_correcta"
 
+			# Elimino las líneas en blanco añadidas al final
+			sed -i ':a; /^\s*$/ { $d; N; ba; }' "$archivo_salida_correcta""
+
 			echo -e "\n--------------------------------- \e[34mTest (integridad) $(printf "%3i" $j)\e[0m ---------------------------------"
 
 			# Establezco el archivo en el que se va a guardar la salida
