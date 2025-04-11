@@ -109,7 +109,7 @@ if [ $error = false ]; then
 		n=$i+1
 	
 		# Elimino las comillas, porque en algunos test aparecen comillas en las salidas.
-		SALIDA_CORRECTA="$(awk "NR==$n" "$ARCHIVO_MD" | awk -F '```' '{print $2}' | cut -d  '"' -f 2)"
+		SALIDA_CORRECTA="$(awk "NR==$n" "$ARCHIVO_MD" | awk -F '```' '{print $2}' | cut -d  '"' -f 2 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
 	
 		# Obtengo la salida que se obtiene al ejecutar el programa:
 		SALIDA_OBTENIDA=$($SALIDA)
