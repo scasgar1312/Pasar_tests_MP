@@ -206,9 +206,9 @@ if [ $error = false ]; then
 			if [[ $n_argumentos -ge 2 ]]; then
 				if [[ $obtener_salida == "salida estándar" ]]; then
 					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
-						cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]} > "$archivo_salida" > "$archivo_salida"
+						cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]} > "$archivo_salida" &> "$archivo_salida"
 					else
-						cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]} > "$archivo_salida"
+						cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]} &> "$archivo_salida"
 					fi
 				else
 					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
@@ -216,14 +216,14 @@ if [ $error = false ]; then
 					else
 						valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]}
 					fi
-					cd $PROYECTO && cat $obtener_salida > $archivo_salida
+					cd $PROYECTO && cat $obtener_salida &> $archivo_salida
 				fi
 			else
 				if [[ $obtener_salida == "salida estándar" ]]; then
-                                                cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" > $archivo_salida
+                                                cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" &> $archivo_salida
 					else
 						valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA"
-						cd $PROYECTO && cat $obtener_salida > $archivo_salida
+						cd $PROYECTO && cat $obtener_salida &> $archivo_salida
 				fi
 			fi
 
