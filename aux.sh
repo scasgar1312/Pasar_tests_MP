@@ -37,7 +37,7 @@ function SaludoLicencia () {
 
 # Función que comprueba si la configuración es válida.
 function ComprobarConfiguracion () {
-	(ls $DIR_BASURA && echo 1) || echo 0;
+	(ls $DIR_BASURA &> /dev/null && echo 1) || echo 0;
         return 0;
 }
 
