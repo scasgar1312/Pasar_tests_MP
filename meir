@@ -1,0 +1,633 @@
+Pasar tests. Programa que pasa los tests proporcionados por Andrés Cano Utrera.
+Copyright (C) 2025 Sergio Castro García
+	    This program is free software: you can redistribute it and/or modify
+            it under the terms of the GNU General Public License as published by
+            the Free Software Foundation, version 3 of the License.
+        
+            This program is distributed in the hope that it will be useful,
+            but WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+            GNU General Public License for more details.
+        
+            You should have received a copy of the GNU General Public License
+            along with this program (it is located in LICENSE at the top dir of this program).
+            If not, see <https://www.gnu.org/licenses/>.
+
+--------------------------------- [34mTest  39[0m ---------------------------------
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: [36mCrime crime; crime.setId("1111"); cout << boolalpha << std::fixed << crime.isIDUnknown();[0m
+
+La salida que se obtiene es:
+
+
+La salida que se debe obtener es:
+false
+
+[33m--------------------------------- Tests de integridad ---------------------------------[0m
+
+--------------------------------- [34mTest (integridad)   1[0m ---------------------------------
+
+Resultado de Valgrind:
+==16916== Memcheck, a memory error detector
+==16916== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==16916== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==16916== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3
+==16916== Parent PID: 16668
+==16916== 
+==16916== 
+==16916== HEAP SUMMARY:
+==16916==     in use at exit: 0 bytes in 0 blocks
+==16916==   total heap usage: 9 allocs, 9 frees, 78,138 bytes allocated
+==16916== 
+==16916== All heap blocks were freed -- no leaks are possible
+==16916== 
+==16916== For lists of detected and suppressed errors, rerun with: -s
+==16916== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: [36mliteralmente vacía, se ha ejecutado el programa sin argumentos.[0m
+
+La salida que se obtiene es:
+ERROR in boston3 parameters
+Run with the following arguments:
+boston3 [-o <outputFile.crm>] <inputFile1.crm> {<inputFile.crm>}
+
+Parameters:
+-o <outputFile.crm>: name of the output file (tests/output/output.crm by default)
+<inputFile1.crm> {<inputFile.crm>}: input crm files
+
+
+La salida que se debe obtener es:
+ERROR in boston3 parameters
+Run with the following arguments:
+boston3 [-o <outputFile.crm>] <inputFile1.crm> {<inputFile.crm>}
+
+Parameters:
+-o <outputFile.crm>: name of the output file (tests/output/output.crm by default)
+<inputFile1.crm> {<inputFile.crm>}: input crm files
+
+--------------------------------- [34mTest (integridad)   2[0m ---------------------------------
+
+Resultado de Valgrind:
+==16961== Memcheck, a memory error detector
+==16961== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==16961== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==16961== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm ../DataSets/empty.crm
+==16961== Parent PID: 16668
+==16961== 
+==16961== 
+==16961== HEAP SUMMARY:
+==16961==     in use at exit: 0 bytes in 0 blocks
+==16961==   total heap usage: 102 allocs, 102 frees, 100,018 bytes allocated
+==16961== 
+==16961== All heap blocks were freed -- no leaks are possible
+==16961== 
+==16961== For lists of detected and suppressed errors, rerun with: -s
+==16961== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [32mCORRECTO[0m
+
+--------------------------------- [34mTest (integridad)   3[0m ---------------------------------
+
+Resultado de Valgrind:
+==17005== Memcheck, a memory error detector
+==17005== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17005== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17005== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm ../DataSets/easy_01b.crm
+==17005== Parent PID: 16668
+==17005== 
+==17005== 
+==17005== HEAP SUMMARY:
+==17005==     in use at exit: 0 bytes in 0 blocks
+==17005==   total heap usage: 123 allocs, 123 frees, 100,961 bytes allocated
+==17005== 
+==17005== All heap blocks were freed -- no leaks are possible
+==17005== 
+==17005== For lists of detected and suppressed errors, rerun with: -s
+==17005== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [32mCORRECTO[0m
+
+--------------------------------- [34mTest (integridad)   4[0m ---------------------------------
+
+Resultado de Valgrind:
+==17049== Memcheck, a memory error detector
+==17049== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17049== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17049== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm
+==17049== Parent PID: 16668
+==17049== 
+==17049== 
+==17049== HEAP SUMMARY:
+==17049==     in use at exit: 0 bytes in 0 blocks
+==17049==   total heap usage: 40 allocs, 40 frees, 85,589 bytes allocated
+==17049== 
+==17049== All heap blocks were freed -- no leaks are possible
+==17049== 
+==17049== For lists of detected and suppressed errors, rerun with: -s
+==17049== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: -o tests/output/output.crm ../DataSets/crimes_01.crm
+
+La salida que se obtiene es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+0
+
+La salida que se debe obtener es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/crimes_01.crm
+1
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+
+--------------------------------- [34mTest (integridad)   5[0m ---------------------------------
+
+Resultado de Valgrind:
+==17125== Memcheck, a memory error detector
+==17125== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17125== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17125== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm ../DataSets/easy_01.crm
+==17125== Parent PID: 16668
+==17125== 
+==17125== 
+==17125== HEAP SUMMARY:
+==17125==     in use at exit: 0 bytes in 0 blocks
+==17125==   total heap usage: 123 allocs, 123 frees, 100,952 bytes allocated
+==17125== 
+==17125== All heap blocks were freed -- no leaks are possible
+==17125== 
+==17125== For lists of detected and suppressed errors, rerun with: -s
+==17125== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: -o tests/output/output.crm ../DataSets/easy_01.crm ../DataSets/easy_01b.crm
+
+[36m--> Archivo ../DataSets/easy_01.crm:[0m
+MP-CRIME-T-1.0
+1
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+
+[36m--> Fin archivo ../DataSets/easy_01.crm:[0m
+
+La salida que se obtiene es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/easy_01.crm
+1
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+
+La salida que se debe obtener es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/easy_01.crm
+#../DataSets/easy_01b.crm
+1
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+
+--------------------------------- [34mTest (integridad)   6[0m ---------------------------------
+
+Resultado de Valgrind:
+==17208== Memcheck, a memory error detector
+==17208== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17208== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17208== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm ../DataSets/empty.crm
+==17208== Parent PID: 16668
+==17208== 
+==17208== 
+==17208== HEAP SUMMARY:
+==17208==     in use at exit: 0 bytes in 0 blocks
+==17208==   total heap usage: 102 allocs, 102 frees, 100,018 bytes allocated
+==17208== 
+==17208== All heap blocks were freed -- no leaks are possible
+==17208== 
+==17208== For lists of detected and suppressed errors, rerun with: -s
+==17208== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: -o tests/output/output.crm ../DataSets/empty.crm ../DataSets/crimes_05b.crm
+
+[36m--> Archivo ../DataSets/empty.crm:[0m
+MP-CRIME-T-1.0
+#Correct file but empty
+0
+
+
+[36m--> Fin archivo ../DataSets/empty.crm:[0m
+
+La salida que se obtiene es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/empty.crm
+0
+
+La salida que se debe obtener es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/empty.crm
+#../DataSets/crimes_05b.crm
+5
+2,222201764,724,UNKNOWN,AUTO THEFT,C6,200,0,2022-01-09 00:00:00,W BROADWAY,42.341286,-71.054680
+7,222073971,611,UNKNOWN,LARCENY PICK-POCKET,A1,77,1,2022-02-01 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+1,222648862,3831,UNKNOWN,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,1,2022-02-05 00:00:00,WASHINGTON ST,42.329750,-71.084541
+3,222201559,301,UNKNOWN,ROBBERY,D4,UNKNOWN,1,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,UNKNOWN,1,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+
+--------------------------------- [34mTest (integridad)   7[0m ---------------------------------
+
+Resultado de Valgrind:
+==17291== Memcheck, a memory error detector
+==17291== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17291== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17291== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm ../DataSets/easy_01.crm
+==17291== Parent PID: 16668
+==17291== 
+==17291== 
+==17291== HEAP SUMMARY:
+==17291==     in use at exit: 0 bytes in 0 blocks
+==17291==   total heap usage: 123 allocs, 123 frees, 100,952 bytes allocated
+==17291== 
+==17291== All heap blocks were freed -- no leaks are possible
+==17291== 
+==17291== For lists of detected and suppressed errors, rerun with: -s
+==17291== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: -o tests/output/output.crm ../DataSets/easy_01.crm ../DataSets/easy_06.crm
+
+[36m--> Archivo ../DataSets/easy_01.crm:[0m
+MP-CRIME-T-1.0
+1
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+
+[36m--> Fin archivo ../DataSets/easy_01.crm:[0m
+
+La salida que se obtiene es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/easy_01.crm
+1
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+
+La salida que se debe obtener es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/easy_01.crm
+#../DataSets/easy_06.crm
+7
+2,222201764,724,UNKNOWN,AUTO THEFT,C6,200,0,2022-01-09 00:00:00,W BROADWAY,42.341286,-71.054680
+7,222073971,611,UNKNOWN,LARCENY PICK-POCKET,A1,77,1,2022-02-01 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+1,222648862,3831,UNKNOWN,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,1,2022-02-05 00:00:00,WASHINGTON ST,42.329750,-71.084541
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+6,22209348,801,UNKNOWN,ASSAULT - SIMPLE,C6,235,1,2022-02-08 22:37:00,DORCHESTER AVE,181.000000,181.000000
+3,222201559,301,UNKNOWN,ROBBERY,D4,UNKNOWN,1,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,UNKNOWN,1,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+
+--------------------------------- [34mTest (integridad)   8[0m ---------------------------------
+
+Resultado de Valgrind:
+==17374== Memcheck, a memory error detector
+==17374== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17374== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17374== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm ../DataSets/crimes_01.crm
+==17374== Parent PID: 16668
+==17374== 
+==17374== 
+==17374== HEAP SUMMARY:
+==17374==     in use at exit: 0 bytes in 0 blocks
+==17374==   total heap usage: 127 allocs, 127 frees, 101,204 bytes allocated
+==17374== 
+==17374== All heap blocks were freed -- no leaks are possible
+==17374== 
+==17374== For lists of detected and suppressed errors, rerun with: -s
+==17374== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: -o tests/output/output.crm ../DataSets/crimes_01.crm ../DataSets/crimes_05.crm
+
+[36m--> Archivo ../DataSets/crimes_01.crm:[0m
+MP-CRIME-T-1.0
+#data imported from csv_2017_2022_repaired.csv
+# line 2
+# line 3
+1
+0,225520077,3126,unknown,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+
+[36m--> Fin archivo ../DataSets/crimes_01.crm:[0m
+
+La salida que se obtiene es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/crimes_01.crm
+1
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+
+La salida que se debe obtener es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/crimes_01.crm
+#../DataSets/crimes_05.crm
+6
+2,222201764,724,UNKNOWN,AUTO THEFT,C6,200,0,2022-01-09 00:00:00,W BROADWAY,42.341286,-71.054680
+7,222073971,611,UNKNOWN,LARCENY PICK-POCKET,A1,77,1,2022-02-01 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+1,222648862,3831,UNKNOWN,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,1,2022-02-05 00:00:00,WASHINGTON ST,42.329750,-71.084541
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+3,222201559,301,UNKNOWN,ROBBERY,D4,UNKNOWN,1,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,UNKNOWN,1,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+
+--------------------------------- [34mTest (integridad)   9[0m ---------------------------------
+
+Resultado de Valgrind:
+==17457== Memcheck, a memory error detector
+==17457== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17457== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17457== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm ../DataSets/crimes_20.crm
+==17457== Parent PID: 16668
+==17457== 
+==17457== 
+==17457== HEAP SUMMARY:
+==17457==     in use at exit: 0 bytes in 0 blocks
+==17457==   total heap usage: 1,421 allocs, 1,421 frees, 165,464 bytes allocated
+==17457== 
+==17457== All heap blocks were freed -- no leaks are possible
+==17457== 
+==17457== For lists of detected and suppressed errors, rerun with: -s
+==17457== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: -o tests/output/output.crm ../DataSets/crimes_20.crm ../DataSets/crimes_05.crm
+
+[36m--> Archivo ../DataSets/crimes_20.crm:[0m
+MP-CRIME-T-1.0
+#data imported from csv_2017_2022_repaired.csv
+20
+0,225520077,3126,unknown,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,0,2022-02-02 00:00:00,WASHINGTON ST,42.343082,-71.141724
+1,222648862,3831,unknown,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,0,2022-02-05 18:25:00,WASHINGTON ST,42.329750,-71.084541
+2,222201764,724,unknown,AUTO THEFT,C6,200,0,2022-01-09 00:00:00,W BROADWAY,42.341286,-71.054680
+3,222201559,301,unknown,ROBBERY,D4,unknown,0,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+4,222111641,619,unknown,LARCENY ALL OTHERS,D14,778,0,2022-02-14 12:30:00,WASHINGTON ST,42.349056,-71.150497
+5,222107076,3126,unknown,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,unknown,0,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+6,22209348,801,unknown,ASSAULT - SIMPLE,C6,235,0,2022-02-08 22:37:00,DORCHESTER AVE,42.321373,-71.056793
+7,222073971,611,unknown,LARCENY PICK-POCKET,A1,77,0,2022-02-27 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+8,222072974,619,unknown,LARCENY ALL OTHERS,C6,186,0,2022-01-14 15:20:00,ALLSTATE ROAD,181.000000,181.000000
+9,222055138,3201,unknown,PROPERTY - LOST/ MISSING,E13,574,0,2022-01-23 13:15:00,WASHINGTON ST,42.309719,-71.104294
+10,222045598,2610,unknown,TRESPASSING,B2,280,0,2022-01-21 12:30:00,DUDLEY ST,42.328728,-71.083824
+11,222040102,3410,unknown,TOWED MOTOR VEHICLE,E13,569,0,2022-02-11 00:00:00,STEDMAN ST,42.304298,-71.107262
+12,22203312,540,unknown,BURGLARY - COMMERICAL,A1,unknown,0,2022-01-16 01:40:00,LINCOLN STREET,181.000000,181.000000
+13,222027001,2670,unknown,HARASSMENT/ CRIMINAL HARASSMENT,E5,559,0,2022-02-20 04:00:00,WASHINGTON ST,42.284718,-71.129990
+14,222021808,3114,unknown,INVESTIGATE PROPERTY,D4,624,0,2022-03-29 00:00:00,BOYLSTON ST,181.000000,181.000000
+15,222021807,3115,unknown,INVESTIGATE PERSON,D4,unknown,0,2022-03-29 03:27:00,W SPRINGFIELD ST,42.339302,-71.079124
+16,222021806,3115,unknown,INVESTIGATE PERSON,B3,444,0,2022-03-29 01:35:00,BLUE HILL AVE,42.295765,-71.087563
+17,222021803,1402,unknown,VANDALISM,B2,unknown,0,2022-03-29 02:00:00,NORFOLK AVE,42.327137,-71.072182
+18,222021802,3006,unknown,SICK/INJURED/MEDICAL - PERSON,C11,unknown,0,2022-03-29 02:03:00,DORCHESTER AVE,42.313225,-71.057152
+19,222021800,3108,unknown,FIRE REPORT,A7,unknown,0,2022-03-29 00:36:00,MERIDIAN ST,42.379017,-71.039207
+
+[36m--> Fin archivo ../DataSets/crimes_20.crm:[0m
+
+La salida que se obtiene es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/crimes_20.crm
+20
+2,222201764,724,UNKNOWN,AUTO THEFT,C6,200,0,2022-01-09 00:00:00,W BROADWAY,42.341286,-71.054680
+8,222072974,619,UNKNOWN,LARCENY ALL OTHERS,C6,186,0,2022-01-14 15:20:00,ALLSTATE ROAD,181.000000,181.000000
+12,22203312,540,UNKNOWN,BURGLARY - COMMERICAL,A1,UNKNOWN,0,2022-01-16 01:40:00,LINCOLN STREET,181.000000,181.000000
+10,222045598,2610,UNKNOWN,TRESPASSING,B2,280,0,2022-01-21 12:30:00,DUDLEY ST,42.328728,-71.083824
+9,222055138,3201,UNKNOWN,PROPERTY - LOST/ MISSING,E13,574,0,2022-01-23 13:15:00,WASHINGTON ST,42.309719,-71.104294
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,0,2022-02-02 00:00:00,WASHINGTON ST,42.343082,-71.141724
+1,222648862,3831,UNKNOWN,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,0,2022-02-05 18:25:00,WASHINGTON ST,42.329750,-71.084541
+6,22209348,801,UNKNOWN,ASSAULT - SIMPLE,C6,235,0,2022-02-08 22:37:00,DORCHESTER AVE,42.321373,-71.056793
+11,222040102,3410,UNKNOWN,TOWED MOTOR VEHICLE,E13,569,0,2022-02-11 00:00:00,STEDMAN ST,42.304298,-71.107262
+4,222111641,619,UNKNOWN,LARCENY ALL OTHERS,D14,778,0,2022-02-14 12:30:00,WASHINGTON ST,42.349056,-71.150497
+13,222027001,2670,UNKNOWN,HARASSMENT/ CRIMINAL HARASSMENT,E5,559,0,2022-02-20 04:00:00,WASHINGTON ST,42.284718,-71.129990
+7,222073971,611,UNKNOWN,LARCENY PICK-POCKET,A1,77,0,2022-02-27 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+3,222201559,301,UNKNOWN,ROBBERY,D4,UNKNOWN,0,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,UNKNOWN,0,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+14,222021808,3114,UNKNOWN,INVESTIGATE PROPERTY,D4,624,0,2022-03-29 00:00:00,BOYLSTON ST,181.000000,181.000000
+19,222021800,3108,UNKNOWN,FIRE REPORT,A7,UNKNOWN,0,2022-03-29 00:36:00,MERIDIAN ST,42.379017,-71.039207
+16,222021806,3115,UNKNOWN,INVESTIGATE PERSON,B3,444,0,2022-03-29 01:35:00,BLUE HILL AVE,42.295765,-71.087563
+17,222021803,1402,UNKNOWN,VANDALISM,B2,UNKNOWN,0,2022-03-29 02:00:00,NORFOLK AVE,42.327137,-71.072182
+18,222021802,3006,UNKNOWN,SICK/INJURED/MEDICAL - PERSON,C11,UNKNOWN,0,2022-03-29 02:03:00,DORCHESTER AVE,42.313225,-71.057152
+15,222021807,3115,UNKNOWN,INVESTIGATE PERSON,D4,UNKNOWN,0,2022-03-29 03:27:00,W SPRINGFIELD ST,42.339302,-71.079124
+
+La salida que se debe obtener es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/crimes_20.crm
+#../DataSets/crimes_05.crm
+20
+2,222201764,724,UNKNOWN,AUTO THEFT,C6,200,0,2022-01-09 00:00:00,W BROADWAY,42.341286,-71.054680
+8,222072974,619,UNKNOWN,LARCENY ALL OTHERS,C6,186,0,2022-01-14 15:20:00,ALLSTATE ROAD,181.000000,181.000000
+12,22203312,540,UNKNOWN,BURGLARY - COMMERICAL,A1,UNKNOWN,0,2022-01-16 01:40:00,LINCOLN STREET,181.000000,181.000000
+10,222045598,2610,UNKNOWN,TRESPASSING,B2,280,0,2022-01-21 12:30:00,DUDLEY ST,42.328728,-71.083824
+9,222055138,3201,UNKNOWN,PROPERTY - LOST/ MISSING,E13,574,0,2022-01-23 13:15:00,WASHINGTON ST,42.309719,-71.104294
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,0,2022-02-02 00:00:00,WASHINGTON ST,42.343082,-71.141724
+1,222648862,3831,UNKNOWN,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,0,2022-02-05 18:25:00,WASHINGTON ST,42.329750,-71.084541
+6,22209348,801,UNKNOWN,ASSAULT - SIMPLE,C6,235,0,2022-02-08 22:37:00,DORCHESTER AVE,42.321373,-71.056793
+11,222040102,3410,UNKNOWN,TOWED MOTOR VEHICLE,E13,569,0,2022-02-11 00:00:00,STEDMAN ST,42.304298,-71.107262
+4,222111641,619,UNKNOWN,LARCENY ALL OTHERS,D14,778,0,2022-02-14 12:30:00,WASHINGTON ST,42.349056,-71.150497
+13,222027001,2670,UNKNOWN,HARASSMENT/ CRIMINAL HARASSMENT,E5,559,0,2022-02-20 04:00:00,WASHINGTON ST,42.284718,-71.129990
+7,222073971,611,UNKNOWN,LARCENY PICK-POCKET,A1,77,0,2022-02-27 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+3,222201559,301,UNKNOWN,ROBBERY,D4,UNKNOWN,0,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,UNKNOWN,0,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+14,222021808,3114,UNKNOWN,INVESTIGATE PROPERTY,D4,624,0,2022-03-29 00:00:00,BOYLSTON ST,181.000000,181.000000
+19,222021800,3108,UNKNOWN,FIRE REPORT,A7,UNKNOWN,0,2022-03-29 00:36:00,MERIDIAN ST,42.379017,-71.039207
+16,222021806,3115,UNKNOWN,INVESTIGATE PERSON,B3,444,0,2022-03-29 01:35:00,BLUE HILL AVE,42.295765,-71.087563
+17,222021803,1402,UNKNOWN,VANDALISM,B2,UNKNOWN,0,2022-03-29 02:00:00,NORFOLK AVE,42.327137,-71.072182
+18,222021802,3006,UNKNOWN,SICK/INJURED/MEDICAL - PERSON,C11,UNKNOWN,0,2022-03-29 02:03:00,DORCHESTER AVE,42.313225,-71.057152
+15,222021807,3115,UNKNOWN,INVESTIGATE PERSON,D4,UNKNOWN,0,2022-03-29 03:27:00,W SPRINGFIELD ST,42.339302,-71.079124
+
+--------------------------------- [34mTest (integridad)  10[0m ---------------------------------
+
+Resultado de Valgrind:
+==17540== Memcheck, a memory error detector
+==17540== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17540== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17540== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm ../DataSets/crimes_05.crm
+==17540== Parent PID: 16668
+==17540== 
+==17540== 
+==17540== HEAP SUMMARY:
+==17540==     in use at exit: 0 bytes in 0 blocks
+==17540==   total heap usage: 253 allocs, 253 frees, 105,997 bytes allocated
+==17540== 
+==17540== All heap blocks were freed -- no leaks are possible
+==17540== 
+==17540== For lists of detected and suppressed errors, rerun with: -s
+==17540== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: -o tests/output/output.crm ../DataSets/crimes_05.crm ../DataSets/crimes_20.crm
+
+[36m--> Archivo ../DataSets/crimes_05.crm:[0m
+MP-CRIME-T-1.0
+#data imported from csv_2017_2022_repaired.csv
+5
+1,222648862,3831,unknown,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,1,2022-02-05 00:00:00,WASHINGTON ST,42.329750,-71.084541
+2,222201764,724,unknown,AUTO THEFT,C6,200,0,2022-01-09 00:00:00,W BROADWAY,42.341286,-71.054680
+3,222201559,301,unknown,ROBBERY,D4,unknown,1,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,unknown,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,unknown,1,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+7,222073971,611,unknown,LARCENY PICK-POCKET,A1,77,1,2022-02-01 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+
+[36m--> Fin archivo ../DataSets/crimes_05.crm:[0m
+
+La salida que se obtiene es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/crimes_05.crm
+5
+2,222201764,724,UNKNOWN,AUTO THEFT,C6,200,0,2022-01-09 00:00:00,W BROADWAY,42.341286,-71.054680
+7,222073971,611,UNKNOWN,LARCENY PICK-POCKET,A1,77,1,2022-02-01 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+1,222648862,3831,UNKNOWN,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,1,2022-02-05 00:00:00,WASHINGTON ST,42.329750,-71.084541
+3,222201559,301,UNKNOWN,ROBBERY,D4,UNKNOWN,1,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,UNKNOWN,1,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+
+La salida que se debe obtener es:
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#../DataSets/crimes_05.crm
+#../DataSets/crimes_20.crm
+20
+2,222201764,724,UNKNOWN,AUTO THEFT,C6,200,0,2022-01-09 00:00:00,W BROADWAY,42.341286,-71.054680
+8,222072974,619,UNKNOWN,LARCENY ALL OTHERS,C6,186,0,2022-01-14 15:20:00,ALLSTATE ROAD,181.000000,181.000000
+12,22203312,540,UNKNOWN,BURGLARY - COMMERICAL,A1,UNKNOWN,0,2022-01-16 01:40:00,LINCOLN STREET,181.000000,181.000000
+10,222045598,2610,UNKNOWN,TRESPASSING,B2,280,0,2022-01-21 12:30:00,DUDLEY ST,42.328728,-71.083824
+9,222055138,3201,UNKNOWN,PROPERTY - LOST/ MISSING,E13,574,0,2022-01-23 13:15:00,WASHINGTON ST,42.309719,-71.104294
+7,222073971,611,UNKNOWN,LARCENY PICK-POCKET,A1,77,1,2022-02-01 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,0,2022-02-02 00:00:00,WASHINGTON ST,42.343082,-71.141724
+1,222648862,3831,UNKNOWN,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,1,2022-02-05 00:00:00,WASHINGTON ST,42.329750,-71.084541
+6,22209348,801,UNKNOWN,ASSAULT - SIMPLE,C6,235,0,2022-02-08 22:37:00,DORCHESTER AVE,42.321373,-71.056793
+11,222040102,3410,UNKNOWN,TOWED MOTOR VEHICLE,E13,569,0,2022-02-11 00:00:00,STEDMAN ST,42.304298,-71.107262
+4,222111641,619,UNKNOWN,LARCENY ALL OTHERS,D14,778,0,2022-02-14 12:30:00,WASHINGTON ST,42.349056,-71.150497
+13,222027001,2670,UNKNOWN,HARASSMENT/ CRIMINAL HARASSMENT,E5,559,0,2022-02-20 04:00:00,WASHINGTON ST,42.284718,-71.129990
+3,222201559,301,UNKNOWN,ROBBERY,D4,UNKNOWN,1,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,UNKNOWN,1,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+14,222021808,3114,UNKNOWN,INVESTIGATE PROPERTY,D4,624,0,2022-03-29 00:00:00,BOYLSTON ST,181.000000,181.000000
+19,222021800,3108,UNKNOWN,FIRE REPORT,A7,UNKNOWN,0,2022-03-29 00:36:00,MERIDIAN ST,42.379017,-71.039207
+16,222021806,3115,UNKNOWN,INVESTIGATE PERSON,B3,444,0,2022-03-29 01:35:00,BLUE HILL AVE,42.295765,-71.087563
+17,222021803,1402,UNKNOWN,VANDALISM,B2,UNKNOWN,0,2022-03-29 02:00:00,NORFOLK AVE,42.327137,-71.072182
+18,222021802,3006,UNKNOWN,SICK/INJURED/MEDICAL - PERSON,C11,UNKNOWN,0,2022-03-29 02:03:00,DORCHESTER AVE,42.313225,-71.057152
+15,222021807,3115,UNKNOWN,INVESTIGATE PERSON,D4,UNKNOWN,0,2022-03-29 03:27:00,W SPRINGFIELD ST,42.339302,-71.079124
+
+--------------------------------- [34mTest (integridad)  11[0m ---------------------------------
+
+Resultado de Valgrind:
+==17647== Memcheck, a memory error detector
+==17647== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17647== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17647== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -o tests/output/output.crm ../DataSets/crimes_01.crm ../DataSets/crimes_05.crm ../DataSets/crimes_01.crm ../DataSets/crimes_05.crm ../DataSets/crimes_01.crm ../DataSets/crimes_05.crm
+==17647== Parent PID: 16668
+==17647== 
+==17647== 
+==17647== HEAP SUMMARY:
+==17647==     in use at exit: 0 bytes in 0 blocks
+==17647==   total heap usage: 704 allocs, 704 frees, 184,323 bytes allocated
+==17647== 
+==17647== All heap blocks were freed -- no leaks are possible
+==17647== 
+==17647== For lists of detected and suppressed errors, rerun with: -s
+==17647== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [32mCORRECTO[0m
+
+--------------------------------- [34mTest (integridad)  12[0m ---------------------------------
+
+Resultado de Valgrind:
+==17685== Memcheck, a memory error detector
+==17685== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17685== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17685== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 ../DataSets/crimes_01.crm ../DataSets/crimes_05.crm
+==17685== Parent PID: 16668
+==17685== 
+==17685== 
+==17685== HEAP SUMMARY:
+==17685==     in use at exit: 0 bytes in 0 blocks
+==17685==   total heap usage: 357 allocs, 357 frees, 122,161 bytes allocated
+==17685== 
+==17685== All heap blocks were freed -- no leaks are possible
+==17685== 
+==17685== For lists of detected and suppressed errors, rerun with: -s
+==17685== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [32mCORRECTO[0m
+
+--------------------------------- [34mTest (integridad)  13[0m ---------------------------------
+
+Resultado de Valgrind:
+==17729== Memcheck, a memory error detector
+==17729== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17729== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==17729== Command: /home/tetonala1312//Escritorio/Boston3/dist/Debug/GNU-Linux/boston3 -f ../DataSets/crimes_easy01.crm ../DataSets/crimes_easy01.crm
+==17729== Parent PID: 16668
+==17729== 
+==17729== 
+==17729== HEAP SUMMARY:
+==17729==     in use at exit: 0 bytes in 0 blocks
+==17729==   total heap usage: 34 allocs, 34 frees, 80,802 bytes allocated
+==17729== 
+==17729== All heap blocks were freed -- no leaks are possible
+==17729== 
+==17729== For lists of detected and suppressed errors, rerun with: -s
+==17729== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+		Resultado de la evaluación: [31mINCORRECTO[0m
+
+Entrada: -f ../DataSets/crimes_easy01.crm ../DataSets/crimes_easy01.crm
+
+[36m--> Archivo ../DataSets/crimes_easy01.crm:[0m
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#/tmp/output.crm
+5
+7,222073971,611,UNKNOWN,LARCENY PICK-POCKET,A1,77,1,2022-02-01 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+1,222648862,3831,UNKNOWN,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,1,2022-02-05 00:00:00,WASHINGTON ST,42.329750,-71.084541
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+3,222201559,301,UNKNOWN,ROBBERY,D4,UNKNOWN,1,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,UNKNOWN,1,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+
+
+[36m--> Fin archivo ../DataSets/crimes_easy01.crm:[0m
+
+[36m--> Archivo ../DataSets/crimes_easy01.crm:[0m
+MP-CRIME-T-1.0
+#Fusion of the following crm files: 
+#/tmp/output.crm
+5
+7,222073971,611,UNKNOWN,LARCENY PICK-POCKET,A1,77,1,2022-02-01 10:07:00,NEW SUDBURY ST,42.361839,-71.059769
+1,222648862,3831,UNKNOWN,M/V - LEAVING SCENE - PROPERTY DAMAGE,B2,288,1,2022-02-05 00:00:00,WASHINGTON ST,42.329750,-71.084541
+0,225520077,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D14,786,1,2022-02-05 00:00:00,WASHINGTON ST,42.343082,-71.141724
+3,222201559,301,UNKNOWN,ROBBERY,D4,UNKNOWN,1,2022-03-05 13:00:00,ALBANY ST,42.333183,-71.073936
+5,222107076,3126,UNKNOWN,WARRANT ARREST - OUTSIDE OF BOSTON WARRANT,D4,UNKNOWN,1,2022-03-11 10:45:00,MASSACHUSETTS AVE & ALBANY ST BOSTON  MA 02118 UNI,42.333500,-71.073509
+
+
+[36m--> Fin archivo ../DataSets/crimes_easy01.crm:[0m
+
+La salida que se obtiene es:
+ERROR in boston3 parameters
+Run with the following arguments:
+boston3 [-o <outputFile.crm>] <inputFile1.crm> {<inputFile.crm>}
+
+Parameters:
+-o <outputFile.crm>: name of the output file (tests/output/output.crm by default)
+<inputFile1.crm> {<inputFile.crm>}: input crm files
+
+
+La salida que se debe obtener es:
+ERROR in boston3 parameters
+Run with the following arguments:
+boston3 [-o <outputFile.crm>] <inputFile1.crm> {<inputFile.crm>}
+
+Parameters:
+-o <outputFile.crm>: name of the output file (tests/output/output.crm by default)
+<inputFile1.crm> {<inputFile.crm>}: input crm files

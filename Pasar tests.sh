@@ -174,9 +174,8 @@ if [ $error = false ]; then
 			else	
 				argumentos=($(echo "$argumentos_str" | cut -d " " -f 1))
 				n_argumentos=2
-			fi
-			
-			for((n_argumentos;n_argumentos<=$(echo "$argumentos_str" | wc --words);n_argumentos++)); do
+			fi	
+			for((n_argumentos;n_argumentos<=$(echo "$argumentos_str" | wc --words)+1;n_argumentos++)); do
 				argumentos[$n_argumentos]=$(echo "$argumentos_str" | cut -d " " -f $n_argumentos)
 			done
 
