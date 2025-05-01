@@ -174,10 +174,9 @@ if [ $error = false ]; then
 			else	
 				argumentos=($(echo "$argumentos_str" | cut -d " " -f 1))
 				n_argumentos=2
-			fi	
-			for((n_argumentos;n_argumentos<=$(echo "$argumentos_str" | wc --words)+1;n_argumentos++)); do
-				argumentos[$n_argumentos]=$(echo "$argumentos_str" | cut -d " " -f $n_argumentos)
-			done
+			fi
+
+			read -ra argumentos <<< "$argumentos_str"
 
 			# Leo el archivo del que se debe obtener la salida (si lo hay)
 			obtener_salida=$(grep '%%%FROMFILE' "$test_a_pasar" | sed -n '{s/^\s*%%%FROMFILE\s*$/ /; s/.*%%%FROMFILE //; s/^[[:space:]]*//; s/[[:space:]]*$//; s/[[:space:]]\+/ /; p}')
@@ -225,7 +224,8 @@ if [ $error = false ]; then
 						cd $PROYECTO && cat $obtener_salida &> $archivo_salida
 				fi
 			fi
-
+			# Elimino las líneas de sobra en la salida
+			sed -i ':a; /^\s*$/ { $d; N; ba; }; $a\' "$archivo_salida"
 
 			echo -e "\nResultado de Valgrind:"
                         cat "$DIR_BASURA/resultado_valgrind_$j.txt"
