@@ -196,12 +196,12 @@ if [ $error = false ]; then
 			cat $test_a_pasar | sed -n '/%%%OUTPUT/,$p' | sed "1d" > "$archivo_salida_correcta"
 
 			# Elimino las líneas en blanco añadidas al final
-			sed -i ':a; /^\s*$/ { $d; N; ba; }' "$archivo_salida_correcta"
+			sed -i ':a; /^\s*$/ { $d; N; ba; }; $a\' "$archivo_salida_correcta"
 
 			echo -e "\n--------------------------------- \e[34mTest (integridad) $(printf "%3i" $j)\e[0m ---------------------------------"
 
 			# Establezco el archivo en el que se va a guardar la salida
-			archivo_salida="$DIR_BASURA/saluda_integridad_$j"
+			archivo_salida="$DIR_BASURA/salida_integridad_$j"
 
 			if [[ $n_argumentos -ge 2 ]]; then
 				if [[ $obtener_salida == "salida estándar" ]]; then
@@ -260,6 +260,7 @@ if [ $error = false ]; then
 								if [ -f "$a_leer" ]; then
 									echo -e "\n\e[36m--> Archivo $a_leer:\e[0m"
 									cat "$a_leer"
+									echo -e "\n\e[36m--> Fin archivo $a_leer:\e[0m"
 								fi
 							done
 						fi
