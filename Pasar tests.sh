@@ -257,7 +257,7 @@ if [ $error = false ]; then
 							cd $PROYECTO
 							for((i=1;i<=$(echo "$argumentos_str" | wc --words);i++)); do
 								a_leer="$(echo "$argumentos_str" | cut -d " " -f $i)"
-								if [ -f "$a_leer" ]; then
+								if [[ -f "$a_leer" && "$a_leer" != "$obtener_salida" ]]; then
 									echo -e "\n\e[36m--> Archivo $a_leer:\e[0m"
 									cat "$a_leer"
 									echo -e "\n\e[36m--> Fin archivo $a_leer:\e[0m"
