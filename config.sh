@@ -109,8 +109,8 @@ ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/tests"
 # quiere que se ejecute y el último. Nota, debe especificar el siguiente al último para
 # terminar por el último. Por defecto, los ejecuta todos (menos los de
 # integridad). Nota: las comillas son importantes, si no no funciona.
-MOD_INICIO=true
-MOD_FINAL=true
+MOD_INICIO=false
+MOD_FINAL=false
 INICIO_TESTS="39"
 FIN_TESTS="40"
 

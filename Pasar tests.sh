@@ -95,7 +95,7 @@ if [ $error = false ]; then
 		echo -e "\n--------------------------------- \e[34mTest $(printf "%3i" $NUMERO_TEST)\e[0m ---------------------------------"
 	
 		# Compilo el main()
-		bash $COMPILAR_MAIN
+		bash $COMPILAR_MAIN > /dev/null
 	
 		# Hago ejecutable la salida.
 		chmod u+x $SALIDA
@@ -131,9 +131,9 @@ if [ $error = false ]; then
 		                echo -e "\n\t\tResultado de la evaluación: \e[31mINCORRECTO\e[0m"
 				echo -e "\nEntrada: \e[36m$codigo_a_probar\e[0m"
 				echo -e "\nLa salida que se obtiene es:"
-		        	echo -e "$(echo $SALIDA_OBTENIDA)"
+		        	echo "$SALIDA_OBTENIDA"
 		        	echo -e "\nLa salida que se debe obtener es:"
-				echo -e "$(echo $SALIDA_CORRECTA)"
+				echo "$SALIDA_CORRECTA"
 				err=$(($err+1))
 			fi
 		fi
