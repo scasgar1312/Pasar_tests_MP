@@ -29,6 +29,10 @@ if [ $(ComprobarConfiguracion) = 1 ]; then
 	echo -e "Ha habido un error en la configuración, terminando la ejecución.\n El directorio de basura existe."
 fi
 
+# Establezco los mensajes en caso de que los tests pasen bien o mal
+BIEN="\e[32mCORRECTO\e[0m"
+MAL="\e[31mINCORRECTO\e[0m"
+
 # Creo el directorio para la basura.
 mkdir -p $DIR_BASURA
 
@@ -126,9 +130,9 @@ if [ $error = false ]; then
 			echo -e "$(awk "NR==$n" "$ARCHIVO_MD")"
 		else
 			if [ "$SALIDA_OBTENIDA" = "$SALIDA_CORRECTA" ]; then
-				echo -e "\n\t\tResultado de la evaluación: \e[32mCORRECTO\e[0m"
+				echo -e "\n\t\tResultado de la evaluación: $BIEN"
 			else
-		                echo -e "\n\t\tResultado de la evaluación: \e[31mINCORRECTO\e[0m"
+		                echo -e "\n\t\tResultado de la evaluación: $MAL"
 				echo -e "\nEntrada: \e[36m$codigo_a_probar\e[0m"
 				echo -e "\nLa salida que se obtiene es:"
 		        	echo "$SALIDA_OBTENIDA"
@@ -142,6 +146,9 @@ if [ $error = false ]; then
 
 	if [ "$EJECUTAR_INTEGRIDAD" = "true" ]; then
 		echo -e "\n\e[33m--------------------------------- Tests de integridad ---------------------------------\e[0m"
+
+		PALABRA_PARA_NO_MOSTRAR_VALGRIND="Warning"
+
 		# Copio el main.cpp original del usuario (pues los tests de integridad prueban el main.cpp, que
 		# debe ser el propuesto por el proyecto).
 		cp $MAIN_CORRECTO $MAIN
@@ -201,34 +208,52 @@ if [ $error = false ]; then
 			# Establezco el archivo en el que se va a guardar la salida
 			archivo_salida="$DIR_BASURA/salida_integridad_$j"
 
+			# Guardo si hay algún error en Valgrind
+			error_valgrind=0
+
+			# Opciones de Valgrind
+			read -ra opciones_valgrind <<< "--track-origins=yes --leak-check=full --error-exitcode=1 --log-file="$DIR_BASURA/resultado_valgrind_$j.txt""
+
 			if [[ $n_argumentos -ge 2 ]]; then
 				if [[ $obtener_salida == "salida estándar" ]]; then
 					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
-						cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]} > "$archivo_salida" &> "$archivo_salida"
+						cd $PROYECTO && valgrind ${opciones_valgrind[*]} "$SALIDA" < ${argumentos[2]} > "$archivo_salida" &> "$archivo_salida"
+						error_valgrind=$?
 					else
-						cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]} &> "$archivo_salida"
+						cd $PROYECTO && valgrind ${opciones_valgrind[*]}  "$SALIDA" ${argumentos[*]} &> "$archivo_salida"
+						error_valgrind=$?
 					fi
 				else
 					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
-						valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" < ${argumentos[2]}
+						valgrind ${opciones_valgrind[*]} "$SALIDA" < ${argumentos[2]}
+						error_valgrind=$?
 					else
-						valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" ${argumentos[*]}
+						valgrind ${opciones_valgrind[*]} "$SALIDA" ${argumentos[*]}
+						error_valgrind=$?
 					fi
 					cd $PROYECTO && cat $obtener_salida &> $archivo_salida
 				fi
 			else
 				if [[ $obtener_salida == "salida estándar" ]]; then
-                                                cd $PROYECTO && valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA" &> $archivo_salida
+                                                cd $PROYECTO && valgrind ${opciones_valgrind[*]} "$SALIDA" &> $archivo_salida
+						error_valgrind=$?
 					else
-						valgrind --track-origins=yes --leak-check=full --log-file=$DIR_BASURA/resultado_valgrind_$j.txt "$SALIDA"
+						valgrind ${opciones_valgrind[*]} "$SALIDA"
+						error_valgrind=$?
 						cd $PROYECTO && cat $obtener_salida &> $archivo_salida
 				fi
 			fi
 			# Elimino las líneas de sobra en la salida
 			sed -i ':a; /^\s*$/ { $d; N; ba; }; $a\' "$archivo_salida"
 
-			echo -e "\nResultado de Valgrind:"
-                        cat "$DIR_BASURA/resultado_valgrind_$j.txt"
+			echo -e -n "\n\t\tResultado de Valgrind: "
+			if cat "$DIR_BASURA/resultado_valgrind_$j.txt" | grep -q "$PALABRA_PARA_NO_MOSTRAR_VALGRIND" || [ $error_valgrind != 0 ]; then
+				echo -e "$MAL"
+				echo ""	# Inserto un salto de línea
+				cat "$DIR_BASURA/resultado_valgrind_$j.txt"
+			else
+				echo -e "$BIEN"
+			fi
 
 			if [ "$(cat $archivo_salida_correcta)" = "" ]; then
 				echo -e "\nEste test puede requerir de comparación manual. A continuación se muestra"
@@ -240,9 +265,9 @@ if [ $error = false ]; then
                         	cat "$test_a_pasar"
 			else
 				if cmp -s "$archivo_salida" "$archivo_salida_correcta" ; then
-					echo -e "\n\t\tResultado de la evaluación: \e[32mCORRECTO\e[0m"
+					echo -e "\n\t\tResultado de la evaluación: $BIEN"
 				else
-					echo -e "\n\t\tResultado de la evaluación: \e[31mINCORRECTO\e[0m"
+					echo -e "\n\t\tResultado de la evaluación: $MAL"
 
 					# Normalmente, uno de los argumentos es la salida, luego troceo las palabras de los argumentos
 					# e imprimo el contenido de los archivos que haya en las distintas palabras del argumento.
