@@ -15,7 +15,7 @@
 #    If not, see <https://www.gnu.org/licenses/>.
 #
 # Fecha: 5/03/2025
-# Versión: 1.0
+# Versión: 1.1
 # Programa que pasa los tests de MP a partir del archivo MarkDown en el que se nos dan los tests que se van a pasar.
 
 source config.sh
