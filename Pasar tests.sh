@@ -147,14 +147,14 @@ if [ $error = false ]; then
 	if [ "$EJECUTAR_INTEGRIDAD" = "true" ]; then
 		echo -e "\n\e[33m--------------------------------- Tests de integridad ---------------------------------\e[0m"
 
-		PALABRA_PARA_NO_MOSTRAR_VALGRIND="Warning"
+		PALABRA_PARA_MOSTRAR_VALGRIND="Warning"
 
 		# Copio el main.cpp original del usuario (pues los tests de integridad prueban el main.cpp, que
 		# debe ser el propuesto por el proyecto).
 		cp $MAIN_CORRECTO $MAIN
 		
-		# Compilo el main.cpp
-		bash $COMPILAR_MAIN
+		# Compilo el proyecto con el main correcto.
+		bash $COMPILAR
 
 		# Cojo la lista de tests que debo pasar
 		lista_de_tests=$(ls "$ENTRADAS_Y_SALIDAS_INTEGRIDAD" | grep -E '.test')
@@ -247,12 +247,18 @@ if [ $error = false ]; then
 			sed -i ':a; /^\s*$/ { $d; N; ba; }; $a\' "$archivo_salida"
 
 			echo -e -n "\n\t\tResultado de Valgrind: "
-			if cat "$DIR_BASURA/resultado_valgrind_$j.txt" | grep -q "$PALABRA_PARA_NO_MOSTRAR_VALGRIND" || [ $error_valgrind != 0 ]; then
-				echo -e "$MAL"
-				echo ""	# Inserto un salto de línea
-				cat "$DIR_BASURA/resultado_valgrind_$j.txt"
+			archivo_valgrind="$DIR_BASURA/resultado_valgrind_$j.txt"
+			if [ -f "$archivo_valgrind" ]; then
+				if cat "$archivo_valgrind" | grep -q "$PALABRA_PARA_MOSTRAR_VALGRIND" || [ $error_valgrind != 0 ]; then
+					echo -e "$MAL"
+					echo ""	# Inserto un salto de línea
+					cat "$archivo_valgrind"
+				else
+					echo -e "$BIEN"
+				fi
 			else
-				echo -e "$BIEN"
+				echo -e "$MAL"
+				echo "No hay archivo de salida de Valgrind"
 			fi
 
 			if [ "$(cat $archivo_salida_correcta)" = "" ]; then
