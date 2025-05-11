@@ -98,9 +98,11 @@ if [ $error = false ]; then
 
 		# Compilo y compruebo si hay un error de compilación. Para
 		# terminar el bucle en ese caso.
-		if ! bash "$COMPILAR" > /dev/null ; then
+		if ! $(bash "$COMPILAR" > /dev/null 2> "$DIR_BASURA/error_compilacion") ; then
 			error_de_compilacion=0
+			cat "$DIR_BASURA/error_compilacion"
 			echo -e "$MENSAJE_ERROR_DE_COMPILACION"
+			echo -e "Código del test: \e[36m$codigo_a_probar\e[0m"
 		else
 			# Hago ejecutable la salida.
                 	chmod u+x $SALIDA
@@ -135,7 +137,7 @@ if [ $error = false ]; then
                                 	echo -e "\n\t\tResultado de la evaluación: $BIEN"
                         	else
                                 	echo -e "\n\t\tResultado de la evaluación: $MAL"
-                                	echo -e "\nEntrada: \e[36m$codigo_a_probar\e[0m"
+                                	echo -e "\nCódigo del test: \e[36m$codigo_a_probar\e[0m"
                                 	echo -e "\nLa salida que se obtiene es:"
                                 	cat "$salida_obtenida"
                                 	echo -e "\nLa salida que se debe obtener es:"
@@ -146,7 +148,7 @@ if [ $error = false ]; then
 
                         	echo -e "\nEste test puede requerir de comparación manual. A continuación se muestra"
                         	echo -e "la información necesaria."
-                        	echo -e "\nEntrada: \e[36m$codigo_a_probar\e[0m"
+                        	echo -e "\nCódigo del test: \e[36m$codigo_a_probar\e[0m"
                         	echo -e "\nLa salida que se obtiene es:"
 
                         	if [ -f "$salida_obtenida" ]; then
