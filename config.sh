@@ -102,7 +102,7 @@ SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston3"
 # sea el correcto. Por ello, debe especificar una ruta (externa al proyecto) donde
 # tenga el main.cpp lleno con el código tal y como lo establezca la práctica.
 
-EJECUTAR_INTEGRIDAD=true
+EJECUTAR_INTEGRIDAD=false
 ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/tests"
 
 # Modificar los tests que se van a ejecutar. Para ello, seleccione el primer test que

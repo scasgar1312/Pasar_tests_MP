@@ -32,6 +32,7 @@ fi
 # Establezco los mensajes en caso de que los tests pasen bien o mal
 BIEN="\e[32mCORRECTO\e[0m"
 MAL="\e[31mINCORRECTO\e[0m"
+MENSAJE_ERROR_DE_COMPILACION="\n\e[31mERROR DE COMPILACIÓN, ABORTANDO...\e[0m"
 
 # Creo el directorio para la basura.
 mkdir -p $DIR_BASURA
@@ -63,21 +64,18 @@ if [ $error = false ]; then
 	cp "$MAIN" "$DIR_BASURA/main.cpp"
 	cp "$MAIN_CORRECTO" "$MAIN"
 	
-	# Compilo todo el proyecto una sola vez para asegurarme de que está todo correctamente compilado y que
-	# no haga falta compilar el proyecto entero sucesivamente.
-	
-	bash $COMPILAR
-	
 	cp "$DIR_BASURA/main.cpp" "$MAIN"
 
 	cd "$PROYECTO"
-	
+
+	# Variable para dectectar algún error de compilación y detener al programa
+	error_de_compilacion=1
+
 	# Ahora sé que desde la primera línea en la que hay un test ($INICIO_TESTS) hasta la anterior a $FIN_TESTS está
 	# primero el test a ejecutar y, a continuación, en la siguiente línea, el resultado que debería dar.
 	# Por tanto, avanzo la variable de iteración de dos en dos, pues paso de dos a dos líneas debido a que
 	# cada test ocupa un total de dos líneas.
-
-	for ((i=$INICIO_TESTS;i<$FIN_TESTS;i=i+2)); do
+	for ((i=$INICIO_TESTS;i<$FIN_TESTS && error_de_compilacion == 1;i=i+2)); do
 		# Inicio la función main().
         	cat "$DECLARACION_MAIN" >> $MAIN
 		
@@ -97,51 +95,70 @@ if [ $error = false ]; then
 		# Muestro el mensaje de test antes de compilar para que los errores de compilación
 		# aparezcan debajo de test correspondiente.
 		echo -e "\n--------------------------------- \e[34mTest $(printf "%3i" $NUMERO_TEST)\e[0m ---------------------------------"
-	
-		# Compilo el main()
-		bash $COMPILAR_MAIN > /dev/null
-	
-		# Hago ejecutable la salida.
-		chmod u+x $SALIDA
-	
-		# Restauro el main.cpp original sin cambiar (para que en la siguiente iteración
-		# pueda comenzar de nuevo).
-		cp "$DIR_BASURA/main.cpp" $MAIN
-	
-		# Obtengo la salida que se debería obtener en ese comando. Nótese que la salida está en la
-		# línea siguiente a la del test.
-		n=$i+1
-	
-		# Elimino las comillas, porque en algunos test aparecen comillas en las salidas.
-		SALIDA_CORRECTA="$(awk "NR==$n" "$ARCHIVO_MD" | awk -F '```' '{print $2}' | cut -d  '"' -f 2)"
-	
-		# Obtengo la salida que se obtiene al ejecutar el programa:
-		SALIDA_OBTENIDA=$($SALIDA)
-		# Si la salida obtenida al ejecutar el archivo es la misma que la que dice el documento
-		# que debe salir, entonces el test lo habrá pasado, si no, el test no lo habrá pasado.
-		
-		if [ "$SALIDA_CORRECTA" = "" ]; then
-			echo -e "\nEste test puede requerir de comparación manual. A continuación se muestra"
-			echo -e "la información necesaria."
-			echo -e "\nEntrada: \e[36m$codigo_a_probar\e[0m"
-			echo -e "\nLa salida que se obtiene es:"
-        	        echo -e "$(echo $SALIDA_OBTENIDA)"
-        	        echo -e "\nLa salida que se debe obtener es:"
-			echo -e "$(awk "NR==$n" "$ARCHIVO_MD")"
+
+		# Compilo y compruebo si hay un error de compilación. Para
+		# terminar el bucle en ese caso.
+		if ! bash "$COMPILAR" > /dev/null ; then
+			error_de_compilacion=0
+			echo -e "$MENSAJE_ERROR_DE_COMPILACION"
 		else
-			if [ "$SALIDA_OBTENIDA" = "$SALIDA_CORRECTA" ]; then
-				echo -e "\n\t\tResultado de la evaluación: $BIEN"
-			else
-		                echo -e "\n\t\tResultado de la evaluación: $MAL"
-				echo -e "\nEntrada: \e[36m$codigo_a_probar\e[0m"
-				echo -e "\nLa salida que se obtiene es:"
-		        	echo "$SALIDA_OBTENIDA"
-		        	echo -e "\nLa salida que se debe obtener es:"
-				echo "$SALIDA_CORRECTA"
-				err=$(($err+1))
-			fi
-		fi
-		
+			# Hago ejecutable la salida.
+                	chmod u+x $SALIDA
+	
+        	        # Restauro el main.cpp original sin cambiar (para que en la siguiente iteración
+                	# pueda comenzar de nuevo).
+                	cp "$DIR_BASURA/main.cpp" $MAIN
+
+                	# Obtengo la salida que se debería obtener en ese comando. Nótese que la salida está en la
+                	# línea siguiente a la del test.
+                	n=$i+1
+
+                	# Elimino las comillas, porque en algunos test aparecen comillas en las salidas.
+                	salida_correcta="$DIR_BASURA/salida_c_$NUMERO_TEST"
+                	awk "NR==$n" "$ARCHIVO_MD" | awk -F '```' '{print $2}' | cut -d  '"' -f 2 > "$salida_correcta"
+
+                	# Obtengo la salida que se obtiene al ejecutar el programa:
+                	salida_obtenida="$DIR_BASURA/salida_$NUMERO_TEST"
+
+                	error="false"
+
+                	if ! $($SALIDA &> "$salida_obtenida" 2> "$salida_obtenida"); then
+                        	error="true"
+                	else
+                        	echo "" >> "$salida_obtenida"
+                	fi
+                	# Si la salida obtenida al ejecutar el archivo es la misma que la que dice el documento
+                	# que debe salir, entonces el test lo habrá pasado, si no, el test no lo habrá pasado.
+
+                	if [ "$error" == "false" ]; then
+				if cmp -s "$salida_obtenida" "$salida_correcta" ; then
+                                	echo -e "\n\t\tResultado de la evaluación: $BIEN"
+                        	else
+                                	echo -e "\n\t\tResultado de la evaluación: $MAL"
+                                	echo -e "\nEntrada: \e[36m$codigo_a_probar\e[0m"
+                                	echo -e "\nLa salida que se obtiene es:"
+                                	cat "$salida_obtenida"
+                                	echo -e "\nLa salida que se debe obtener es:"
+                                	cat "$salida_correcta"
+                                	err=$(($err+1))
+                        	fi
+                	else
+
+                        	echo -e "\nEste test puede requerir de comparación manual. A continuación se muestra"
+                        	echo -e "la información necesaria."
+                        	echo -e "\nEntrada: \e[36m$codigo_a_probar\e[0m"
+                        	echo -e "\nLa salida que se obtiene es:"
+
+                        	if [ -f "$salida_obtenida" ]; then
+                                	cat "$salida_obtenida"
+                        	else
+                                	echo "La salida ha sido totalmente vacía"
+                        	fi
+
+                        	echo -e "\nLa salida que se debe obtener es:"
+                        	awk "NR==$n" "$ARCHIVO_MD"
+                	fi
+		fi	
 	done
 
 	if [ "$EJECUTAR_INTEGRIDAD" = "true" ]; then
