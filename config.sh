@@ -56,7 +56,7 @@
 
 # Directorio en el que se encuentra el proyecto listo para probar (véanse los pasos a realizar al inicio del programa)
 # , no añada la barra al final "/":
-PROYECTO="$HOME/Escritorio/Boston3"
+PROYECTO="$HOME/Escritorio/Boston4"
 
 # Archivo donde vienen las pruebas que se le tienen que pasar:
 ARCHIVO_MD="$HOME/Escritorio/configuracion/TestReport.md"
@@ -75,7 +75,7 @@ MAIN="$PROYECTO/src/main.cpp"
 
 # Archivo con el main.cpp original del proyecto (relleno correctamente siguiendo
 # las indicaciones del guion).
-MAIN_CORRECTO="$HOME/Documentos/MP/Proyectos/Boston3/src/main.cpp"
+MAIN_CORRECTO="$HOME/Documentos/MP/Proyectos/Boston4/src/main.cpp"
 
 # Archivo en el que se encuentran los comandos que ejecuta NetBeans para compilar (véanse los pasos a realizar al inicio del programa):
 COMPILAR="$HOME/Escritorio/configuracion/comandos_todo.sh"
@@ -94,7 +94,7 @@ CIERRE_MAIN="$HOME/Escritorio/configuracion/main_cierre.txt"
 # Archivo en el que se genera el ejecutable tras ejecutar los comandos de NetBeans
 # (especificar la ruta absoluta). Pista: se obtiene en el último comando de compilación de NetBeans:
 
-SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston3"
+SALIDA="$PROYECTO/dist/Debug/GNU-Linux/boston4"
 
 # ¿Ejecutar los tests de integridad?: «true» para que se ejecuten y «false» para que no.
 # Nota: para pasar los tests de integridad, se deben ejecutar sobre el proyecto
@@ -109,8 +109,8 @@ ENTRADAS_Y_SALIDAS_INTEGRIDAD="$PROYECTO/tests"
 # quiere que se ejecute y el último. Nota, debe especificar el siguiente al último para
 # terminar por el último. Por defecto, los ejecuta todos (menos los de
 # integridad). Nota: las comillas son importantes, si no no funciona.
-MOD_INICIO=false
-MOD_FINAL=false
+MOD_INICIO=true
+MOD_FINAL=true
 INICIO_TESTS="39"
 FIN_TESTS="40"
 

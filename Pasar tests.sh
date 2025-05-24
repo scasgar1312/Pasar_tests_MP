@@ -30,9 +30,15 @@ if [ $(ComprobarConfiguracion) = 1 ]; then
 fi
 
 # Establezco los mensajes en caso de que los tests pasen bien o mal
-BIEN="\e[32mCORRECTO\e[0m"
-MAL="\e[31mINCORRECTO\e[0m"
-MENSAJE_ERROR_DE_COMPILACION="\n\e[31mERROR DE COMPILACIÓN, ABORTANDO...\e[0m"
+readonly BIEN="\e[32mCORRECTO\e[0m"
+readonly MAL="\e[31mINCORRECTO\e[0m"
+readonly MENSAJE_ERROR_DE_COMPILACION="\n\e[31mERROR DE COMPILACIÓN, ABORTANDO...\e[0m"
+
+# ------------------------------------- Colores -------------------------------------
+
+readonly FORMATO_SALIDA_OBTENIDA="\e[35m"
+readonly FORMATO_MENSAJE_DE_SALIDA="\e[4;6m"
+readonly FORMATO_SALIDA_CORRECTA="\e[32m"
 
 # Creo el directorio para la basura.
 mkdir -p $DIR_BASURA
@@ -124,7 +130,7 @@ if [ $error = false ]; then
 
                 	error="false"
 
-                	if ! $($SALIDA &> "$salida_obtenida" 2> "$salida_obtenida"); then
+                	if ! $($SALIDA &>> "$salida_obtenida"); then
                         	error="true"
                 	else
                         	echo "" >> "$salida_obtenida"
@@ -137,12 +143,21 @@ if [ $error = false ]; then
                                 	echo -e "\n\t\tResultado de la evaluación: $BIEN"
                         	else
                                 	echo -e "\n\t\tResultado de la evaluación: $MAL"
-                                	echo -e "\nCódigo del test: \e[36m$codigo_a_probar\e[0m"
-                                	echo -e "\nLa salida que se obtiene es:"
+                                	echo -e "\n"$FORMATO_MENSAJE_DE_SALIDA"Código del test:\e[0m $codigo_a_probar"
+                                	
+					echo -e "\n"$FORMATO_MENSAJE_DE_SALIDA"La salida que se obtiene es:\e[0m"
+					
+					echo -e -n "$FORMATO_SALIDA_OBTENIDA"
                                 	cat "$salida_obtenida"
-                                	echo -e "\nLa salida que se debe obtener es:"
-                                	cat "$salida_correcta"
-                                	err=$(($err+1))
+					echo -e -n "\e[0m"
+					
+                                	echo -e "\n"$FORMATO_MENSAJE_DE_SALIDA"La salida que se debe obtener es:\e[0m"
+                                	
+					echo -e -n "$FORMATO_SALIDA_CORRECTA"
+					cat "$salida_correcta"
+					echo -e -n "\e[0m"
+                                	
+					err=$(($err+1))
                         	fi
                 	else
 
@@ -176,7 +191,7 @@ if [ $error = false ]; then
 		bash $COMPILAR
 
 		# Cojo la lista de tests que debo pasar
-		lista_de_tests=$(ls "$ENTRADAS_Y_SALIDAS_INTEGRIDAD" | grep -E '.test')
+		lista_de_tests=$(ls "$ENTRADAS_Y_SALIDAS_INTEGRIDAD" | grep -E '.test$')
 
 		# Cojo el número de tests que debo pasar para realizar un bucle
 		numero_de_tests=$(echo "$lista_de_tests" | wc --words)
@@ -231,15 +246,17 @@ if [ $error = false ]; then
 			error_valgrind=0
 
 			# Opciones de Valgrind
-			read -ra opciones_valgrind <<< "--track-origins=yes --leak-check=full --error-exitcode=1 --log-file="$DIR_BASURA/resultado_valgrind_$j.txt""
+			read -ra opciones_valgrind <<< "--track-origins=yes --leak-check=full --error-exitcode=10 --log-file="$DIR_BASURA/resultado_valgrind_$j.txt""
+
+			cd "$PROYECTO"
 
 			if [[ $n_argumentos -ge 2 ]]; then
 				if [[ $obtener_salida == "salida estándar" ]]; then
 					if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
-						cd $PROYECTO && valgrind ${opciones_valgrind[*]} "$SALIDA" < ${argumentos[2]} > "$archivo_salida" &> "$archivo_salida"
+						cd $PROYECTO && valgrind ${opciones_valgrind[*]} "$SALIDA" < ${argumentos[2]} &>> "$archivo_salida"
 						error_valgrind=$?
 					else
-						cd $PROYECTO && valgrind ${opciones_valgrind[*]}  "$SALIDA" ${argumentos[*]} &> "$archivo_salida"
+						cd $PROYECTO && valgrind ${opciones_valgrind[*]}  "$SALIDA" ${argumentos[*]} &>> "$archivo_salida"
 						error_valgrind=$?
 					fi
 				else
@@ -247,19 +264,19 @@ if [ $error = false ]; then
 						valgrind ${opciones_valgrind[*]} "$SALIDA" < ${argumentos[2]}
 						error_valgrind=$?
 					else
-						valgrind ${opciones_valgrind[*]} "$SALIDA" ${argumentos[*]}
+						valgrind ${opciones_valgrind[*]} "$SALIDA" ${argumentos[*]} &>> "$archivo_salida"
 						error_valgrind=$?
 					fi
-					cd $PROYECTO && cat $obtener_salida &> $archivo_salida
+					cd $PROYECTO && cat $obtener_salida &>> $archivo_salida 2> /dev/null
 				fi
 			else
 				if [[ $obtener_salida == "salida estándar" ]]; then
-                                                cd $PROYECTO && valgrind ${opciones_valgrind[*]} "$SALIDA" &> $archivo_salida
+                                                cd $PROYECTO && valgrind ${opciones_valgrind[*]} "$SALIDA" &>> $archivo_salida
 						error_valgrind=$?
 					else
 						valgrind ${opciones_valgrind[*]} "$SALIDA"
 						error_valgrind=$?
-						cd $PROYECTO && cat $obtener_salida &> $archivo_salida
+						cd $PROYECTO && cat $obtener_salida &>> $archivo_salida
 				fi
 			fi
 			# Elimino las líneas de sobra en la salida
@@ -268,7 +285,7 @@ if [ $error = false ]; then
 			echo -e -n "\n\t\tResultado de Valgrind: "
 			archivo_valgrind="$DIR_BASURA/resultado_valgrind_$j.txt"
 			if [ -f "$archivo_valgrind" ]; then
-				if cat "$archivo_valgrind" | grep -q "$PALABRA_PARA_MOSTRAR_VALGRIND" || [ $error_valgrind != 0 ]; then
+				if cat "$archivo_valgrind" | grep -q "$PALABRA_PARA_MOSTRAR_VALGRIND" || [ $error_valgrind == 10 ]; then
 					echo -e "$MAL"
 					echo ""	# Inserto un salto de línea
 					cat "$archivo_valgrind"
@@ -302,21 +319,27 @@ if [ $error = false ]; then
 						if [ "$(echo $argumentos_str | grep "<")" != "" ]; then
 							echo -e "\nEntrada: \e[36m$(cat ${argumentos[2]})\e[0m"
 						else
-							echo -e "\nEntrada: "$argumentos_str""
+							echo -e "\nEntrada: "${argumentos[*]}""
 							cd $PROYECTO
 							for((i=1;i<=$(echo "$argumentos_str" | wc --words);i++)); do
 								a_leer="$(echo "$argumentos_str" | cut -d " " -f $i)"
 								if [[ -f "$a_leer" && "$a_leer" != "$obtener_salida" ]]; then
 									echo -e "\n\e[36m--> Archivo $a_leer:\e[0m"
+									echo -n -e "\e[33m"
 									cat "$a_leer"
-									echo -e "\n\e[36m--> Fin archivo $a_leer:\e[0m"
+									echo -n -e "\e[0m"
+									echo -e "\e[36m--> Fin archivo $a_leer:\e[0m"
 								fi
 							done
 						fi
-						echo -e "\nLa salida que se obtiene es:"
+						echo -e "\n--> "$FORMATO_MENSAJE_SALIDA"La salida que se obtiene es:\e[0m"
+						echo -e -n "$FORMATO_SALIDA_OBTENIDA"
 						cat "$archivo_salida"
-						echo -e "\nLa salida que se debe obtener es:"
+						echo -e -n "\e[0m"
+						echo -e "\n--> "$FORMATO_MENSAJE_SALIDA"La salida que se debe obtener es:\e[0m"
+						echo -e -n "$FORMATO_SALIDA_CORRECTA"
 						cat "$archivo_salida_correcta"
+						echo -e -n "\e[0m"
 						err=$(($err+1))
 					else
 						echo -e "\nEntrada: \e[36mliteralmente vacía, se ha ejecutado el programa sin argumentos.\e[0m"
